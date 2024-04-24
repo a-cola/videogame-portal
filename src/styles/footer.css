@@ -1,0 +1,14 @@
+.footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    font-size: small;
+    margin-bottom: 30px;
+}
+.footer>span {
+    color: gray;
+}
+.vgp-logo-footer {
+    height: 70px;
+}

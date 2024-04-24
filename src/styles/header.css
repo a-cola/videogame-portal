@@ -1,0 +1,102 @@
+.header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(38, 38, 38);
+    height: 50px;
+    padding: 5px;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+.home-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
+    height: 50px;
+}
+.vgp-logo {
+    display: flex;
+    max-height: 50px;
+}
+.menu {
+    display: flex;
+    align-items: center;
+    font-size: medium;
+    background-color: transparent;
+    color: white;
+    border-radius: 8px;
+    padding: 5px;
+    border: none;
+    height: 32px;
+    transition: 200ms;
+}
+.menu:hover, .mygames-button:hover {
+    background-color: #005789;
+}
+.menu:active, .mygames-button:active {
+    background-color: #00a2ff;
+}
+.menu>svg {
+    filter: invert();
+    height: 24px;
+}
+.menu>span {
+    margin-left: 5px;
+}
+.search-bar {
+    display: flex;
+    background-color: white;
+    border-radius: 5px;
+    padding: 3px;
+    width: 40%;
+}
+.search-bar>svg {
+    height: 24px;
+}
+.search-bar-input {
+    width: 100%;
+    height: 24px;
+    border: none;
+    margin-right: 5px;
+    outline: none;
+}
+.mygames-button {
+    display: flex;
+    align-items: center;
+    background-color:transparent;
+    color: white;
+    font-size: medium;
+    border-radius: 8px;
+    border: none;
+    height: 32px;
+    transition: 200ms;
+    white-space: nowrap;
+}
+.mygames-button>svg {
+    filter: invert();
+    height: 24px;
+}
+.mygames-button>span {
+    margin-left: 5px;
+}
+.login-button {
+    display: flex;
+    align-items: center;
+    background-color:transparent;
+    color: white;
+    font-size: medium;
+    border-radius: 8px;
+    padding: 5px;
+    border: none;
+    height: 32px;
+    transition: 200ms;
+    white-space: nowrap;
+}
+.login-button:hover {
+    background-color: #8d5500;
+}
+.login-button:active {
+    background-color: #ff9a00;
+}
