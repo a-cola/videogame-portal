@@ -1,5 +1,6 @@
 * {
     font-family: "Montserrat", sans-serif;
+    color: white;
 }
 body {
     background-color: rgb(30, 30, 30);
@@ -17,9 +18,17 @@ body {
     padding-left: 10%;
     padding-right: 10%;
 }
+.home-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
+    height: 50px;
+}
 .vgp-logo {
     display: flex;
-    max-height: 100%;
+    max-height: 50px;
 }
 .menu {
     display: flex;
@@ -100,4 +109,104 @@ body {
 }
 .login-button:active {
     background-color: #ff9a00;
+}
+
+/* HomePage Container */
+.home-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.main-viewer {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(50, 50, 50);
+    border-radius: 10px;
+    width: 1000px;
+    height: 565px;
+    margin: 30px;
+}
+.game-big {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    padding: 30px
+}
+.game-big>img {
+    height: 500px;
+    border-radius: 10px;
+}
+.game-big-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+.game-big-title {
+    font-size: xxx-large;
+    font-weight: bold;
+}
+.game-big-year {
+    margin-bottom: 10px;
+    font-size: large;
+}
+.game-big-genres{
+    display: flex;
+}
+.game-big-genre {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: gray;
+    width: fit-content;
+    padding: 5px;
+    margin-right: 5px;
+    border-radius: 15px;
+}
+.game-big-info>span {
+    margin-left: 10px;
+}
+.main-viewer-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: rgb(60, 60, 60);
+    padding: 50px;
+    width: 250px;
+}
+.game-small {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+}
+.game-small>img{
+    height: 120px;
+}
+.game-small-title {
+    font-size: large;
+    font-weight: bold;
+}
+.game-small-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+/* Footer */
+.footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    font-size: small;
+}
+.footer>span {
+    color: gray;
+}
+.vgp-logo-footer {
+    height: 70px;
 }

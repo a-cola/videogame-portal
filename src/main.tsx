@@ -5,12 +5,12 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 const router = createBrowserRouter(
   [
-    {path:'/', element:<HomePage />, errorElement: <span>Errore</span>},
+    { path:'/', element:<HomePage />, errorElement: <span>Errore</span> },
   ]
 )
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router}/>
+      <RouterProvider router={router}/>
   </React.StrictMode>,
 )
