@@ -1,6 +1,5 @@
-import { collection, getDocs, limit, orderBy, query, where} from "firebase/firestore";
+import { collection, getDocs, limit, orderBy, query} from "firebase/firestore";
 import { db } from "./main";
-import { get } from "firebase/database";
 
 export interface GameData {
     title: string;
