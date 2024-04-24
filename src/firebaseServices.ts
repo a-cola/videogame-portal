@@ -1,8 +1,7 @@
-import { getAuth } from "firebase/auth";
-import { app } from "./main";
-import { collection, getDocs, getFirestore } from "firebase/firestore";
+import { collection, getDocs} from "firebase/firestore";
+import { db } from "./main";
 
-export interface Game {
+export interface GameData {
     title: string;
     year: number;
     genres: string[];
@@ -16,12 +15,13 @@ export interface Game {
     imgUrl: string;
 }
 
-const auth = getAuth(app);
-const db = getFirestore(app);
+export interface Game extends GameData {
+    id: string;
+}
 
 export const getGameList = async () => {
     const gameCollection = collection(db, "videogames");
     const gameSnapshot = await getDocs(gameCollection);
-    const gameList:Game[] = gameSnapshot.docs.map(doc => doc.data() as Game);
+    const gameList:Game[] = gameSnapshot.docs.map(doc => ({id:doc.id, ...(doc.data() as GameData)}));
     return gameList;
 }
