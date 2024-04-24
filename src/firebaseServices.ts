@@ -1,5 +1,6 @@
-import { collection, getDocs} from "firebase/firestore";
+import { collection, getDocs, limit, orderBy, query, where} from "firebase/firestore";
 import { db } from "./main";
+import { get } from "firebase/database";
 
 export interface GameData {
     title: string;
@@ -24,4 +25,20 @@ export const getGameList = async () => {
     const gameSnapshot = await getDocs(gameCollection);
     const gameList:Game[] = gameSnapshot.docs.map(doc => ({id:doc.id, ...(doc.data() as GameData)}));
     return gameList;
+}
+
+export const getTopTen = async () => {
+    const gameCollection = collection(db, "videogames");
+    const gameQuery = query(gameCollection, orderBy("vote", "desc"), limit(10));
+    const gameSnapshot = await getDocs(gameQuery);
+    const gameTopTen:Game[] = gameSnapshot.docs.map(doc => ({id:doc.id, ...(doc.data() as GameData)}));
+    return gameTopTen;
+}
+
+export const getRecentlyAdded = async () => {
+    const gameCollection = collection(db, "videogames");
+    const gameQuery = query(gameCollection, orderBy("year", "desc"), limit(10));
+    const gameSnapshot = await getDocs(gameQuery);
+    const gameTopTen:Game[] = gameSnapshot.docs.map(doc => ({id:doc.id, ...(doc.data() as GameData)}));
+    return gameTopTen;
 }
