@@ -6,6 +6,9 @@ body {
     background-color: rgb(30, 30, 30);
     margin: 0;
 }
+button:hover {
+    cursor: pointer;
+}
 
 /* Header */
 .header {
@@ -139,10 +142,17 @@ body {
     height: 500px;
     border-radius: 10px;
 }
+.game-big>img:hover {
+    cursor: pointer;
+}
 .game-big-info {
     display: flex;
     flex-direction: column;
     margin-left: 20px;
+}
+.game-big-info:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
 .game-big-title {
     font-size: xxx-large;
@@ -172,7 +182,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     border-radius: 10px;
     background-color: rgb(60, 60, 60);
     padding: 50px;
@@ -186,6 +195,9 @@ body {
 .game-small>img{
     height: 120px;
 }
+.game-small>img:hover{
+    cursor: pointer;;
+}
 .game-small-title {
     font-size: large;
     font-weight: bold;
@@ -194,6 +206,10 @@ body {
     display: flex;
     flex-direction: column;
     margin-left: 10px;
+}
+.game-small-info:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 /* Footer */
