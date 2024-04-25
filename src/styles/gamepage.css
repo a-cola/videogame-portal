@@ -1,0 +1,172 @@
+.game-page-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(50, 50, 50);
+    width: 1000px;
+    border-radius: 10px;
+}
+.game-viewer {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.game-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 20px;
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+.game-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: rgb(40, 40, 40);
+    width: 100%;
+    height: 70px;
+    border-radius: 10px;
+}
+.game-title {
+    display: flex;
+    align-items: center;
+    font-size: 38px;
+    font-weight: bold;
+    margin-left: 20px;
+    height: 34px;
+}
+.game-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-left: 28px;
+}
+.game-year {
+    color: rgb(180, 180, 180);
+}
+.game-info>svg {
+    height: 20px;
+    margin-left: 8px;
+    filter: invert() brightness(80%);
+}
+.game-left>img{
+    width: 300px;
+    border-radius: 10px;
+}
+.game-genres{
+    display: flex;
+    margin-top: 5px;
+}
+.game-genre {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: gray;
+    width: fit-content;
+    padding: 5px;
+    margin-right: 5px;
+    border-radius: 15px;
+}
+.game-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    margin-right: 5px;
+}
+.game-votes {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-around;
+}
+.game-vote-singles {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.game-vote-top {
+    display: flex;
+    justify-content: center;
+}
+.game-vote-bottom {
+    display: flex;
+    justify-content: center;
+}
+.game-vote-single {
+    display: flex;
+    position: relative;
+    margin: 15px;
+}
+.game-vote-single>span {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.game-vote-value {
+    align-items: center;
+    margin-top: 0px;
+    font-size: 42px;
+    font-weight: bold;
+}
+.game-vote-title {
+    align-items: end;
+    margin-top: 10px;
+    font-size: large;
+}
+.game-buttons {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 40px;
+}
+.game-buttons>button {
+    height: 50px;
+    width: 200px;
+    font-size: large;
+    border: none;
+    transition: 300ms;
+}
+.game-buttons :first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: #00a2ff;
+    border-right: solid 1px rgb(75, 75, 75);
+}
+.game-buttons :first-child:hover {
+    background-color: #0078be;
+}
+.game-buttons :first-child:active {
+    background-color: #005789;
+}
+.game-buttons :last-child {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #ff9a00;
+    border-left: solid 1px rgb(75, 75, 75);
+}
+
+.game-buttons :last-child:hover {
+    background-color: #b36b00;
+}
+.game-buttons :last-child:active {
+    background-color: #8d5500;
+}
+
+circle {
+    transition: stroke-dashoffset 0.35s;
+    transform: rotate(135deg);
+    transform-origin: 50% 50%;
+}
