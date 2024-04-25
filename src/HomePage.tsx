@@ -4,6 +4,7 @@ import { Header } from "./Header";
 import { GamesContext } from "./GamesContext";
 import { Game } from "./firebaseServices";
 import { ArrowLeft, ArrowRight } from "./Icons";
+import { useNavigate } from "react-router-dom";
 
 export function HomePage () {
     const gameCtx = useContext(GamesContext);
@@ -29,11 +30,12 @@ export function HomePage () {
 }
 
 function GameBig ({game}:{game:Game}) {
+    const navigate = useNavigate();
     return <>
         <div className="game-big">
-            <img src={game.imgUrl} />
+            <img src={game.imgUrl} onClick={()=>navigate(`/games/${game.id}`)}/>
             <div className="game-big-info">
-                <span className="game-big-title">{game.title}</span>
+                <span className="game-big-title" onClick={()=>navigate(`/games/${game.id}`)}>{game.title}</span>
                 <span className="game-big-year">{game.year}</span>
                 <span className="game-big-genres">
                     {game.genres.map(genre => {
@@ -46,8 +48,9 @@ function GameBig ({game}:{game:Game}) {
 }
 
 function GameSmall({game}:{game:Game}) {
+    const navigate = useNavigate();
     return <>
-        <div className="game-small">
+        <div className="game-small" onClick={()=>navigate(`/games/${game.id}`)}>
             <img src={game.imgUrl} />
             <div className="game-small-info">
                 <span className="game-small-title">{game.title}</span>
@@ -58,6 +61,7 @@ function GameSmall({game}:{game:Game}) {
 }
 
 function GameCarousel({gameList, title}:{gameList:Game[], title:string}) {
+    const navigate = useNavigate();
     const [scrollPosition, setScrollPosition] = useState(0);
     const [maxScrollLeft, setMaxScrollLeft] = useState(Infinity);
     
@@ -101,6 +105,7 @@ function GameCarousel({gameList, title}:{gameList:Game[], title:string}) {
                             key={g.id}
                             className="carousel-game"
                             src={g.imgUrl}
+                            onClick={()=>navigate(`/games/${g.id}`)}
                         />
                     })}
                     {scrollPosition<maxScrollLeft
