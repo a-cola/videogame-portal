@@ -26,13 +26,17 @@ export const db = getFirestore(app);
 const router = createBrowserRouter(
   [
     { path:'/', element:<HomePage />, errorElement: <span>Errore</span> },
-    { path:'/games', element:<OverviewPage />, errorElement: <span>Errore Overview</span>},
-    { path:'/games/:id', element:<GamePage />, loader: listLoader, errorElement: <span>Errore Pagina Game</span>}
+    { path:'/genres/:label', element:<OverviewPage />, loader:listLoaderLabel, errorElement: <span>Errore Overview</span>},
+    { path:'/games/:id', element:<GamePage />, loader: listLoaderId, errorElement: <span>Errore Pagina Game</span>}
   ]
 )
 
-function listLoader({params}:any) {
+function listLoaderId({params}:any) {
   return params.id;
+}
+
+function listLoaderLabel({params}:any) {
+  return params.label;
 }
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

@@ -57,12 +57,16 @@ function MenuDropdown() {
         'TPS',           'Time Travel',
         'Zombie'
     ];
+
+    const navigate = useNavigate();
     
     return <>
         <div className="dropdown">
             <span>Genres:</span>
             <div className="dropdown-genres-container">
-                {GENRES.map((g)=><button className="dropdown-genre">{g}</button>)}
+                {GENRES.map((g)=><button
+                    className="dropdown-genre"
+                    onClick={()=>navigate(`/genres/${g}`)}>{g}</button>)}
             </div>
             <button className="dropdown-showall">Show All Games</button>
         </div>

@@ -1,21 +1,36 @@
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { GamesContext } from "./GamesContext"
 import { Header } from "./Header";
 import { Footer } from "./Footer";
-import { Game } from "./firebaseServices";
-import { useNavigate } from "react-router-dom";
+import { Game, getGameList } from "./firebaseServices";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 export function OverviewPage () {
     const gameCtx = useContext(GamesContext);
 
-    if(gameCtx.gameList.length === 0) return <></>
+    const label = useLoaderData() as string;
+
+    const [gameList, setGameList] = useState<Game[]|null>(null)
+
+    useEffect(()=>{
+        if(label==="all")
+            setGameList(gameCtx.gameList);
+        else
+            getGameList(label).then(gl=>setGameList(gl));
+    }, [label])
+
+    if(gameList === null || gameList.length === 0) return <></>
 
     return <>
         <Header />
         <section className="overview-page-container">
+            <div className="overview-title">
+                <span className="overview-label">{label==="all"?"All Games":label}</span>
+                <div className="hl" style={{border:"solid 3px white"}}/>
+            </div>
             <div className="overview-games-container">
-                {gameCtx.gameList.map((g)=>{
-                    return <GameSlot game={g}/>
+                {gameList.map((g)=>{
+                    return <GameSlot key={g.id} game={g}/>
                 })}
             </div>
         </section>

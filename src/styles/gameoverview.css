@@ -1,8 +1,20 @@
 .overview-page-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     height: 100%;
+}
+.overview-title {
+    width: 90%;
+}
+.overview-label {
+    display: flex;
+    width: 90%;
+    padding: 10px;
+    padding-bottom: 0;
+    font-size: xx-large;
+    font-weight: bold;
 }
 .overview-games-container {
     display: flex;
