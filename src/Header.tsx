@@ -65,6 +65,7 @@ function MenuDropdown() {
             <span>Genres:</span>
             <div className="dropdown-genres-container">
                 {GENRES.map((g)=><button
+                    key={g}
                     className="dropdown-genre"
                     onClick={()=>navigate(`/genres/${g}`)}>{g}</button>)}
             </div>
