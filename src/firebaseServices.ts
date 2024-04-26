@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, limit, orderBy, query} from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, limit, orderBy, query, where} from "firebase/firestore";
 import { db } from "./main";
 
 export interface GameData {
@@ -19,9 +19,11 @@ export interface Game extends GameData {
     id: string;
 }
 
-export const getGameList = async () => {
+export const getGameList = async (genre?:string) => {
     const gameCollection = collection(db, "videogames");
-    const gameQuery = query(gameCollection, orderBy("title", "asc"));
+    const gameQuery = genre===undefined
+        ?query(gameCollection, orderBy("title", "asc"))
+        :query(gameCollection, where("genres", "array-contains", genre))
     const gameSnapshot = await getDocs(gameQuery);
     const gameList:Game[] = gameSnapshot.docs.map(doc => ({id:doc.id, ...(doc.data() as GameData)}));
     return gameList;
