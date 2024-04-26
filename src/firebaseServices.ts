@@ -21,7 +21,8 @@ export interface Game extends GameData {
 
 export const getGameList = async () => {
     const gameCollection = collection(db, "videogames");
-    const gameSnapshot = await getDocs(gameCollection);
+    const gameQuery = query(gameCollection, orderBy("title", "desc"));
+    const gameSnapshot = await getDocs(gameQuery);
     const gameList:Game[] = gameSnapshot.docs.map(doc => ({id:doc.id, ...(doc.data() as GameData)}));
     return gameList;
 }
