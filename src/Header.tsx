@@ -60,7 +60,11 @@ function MenuDropdown() {
     
     return <>
         <div className="dropdown">
-            {GENRES.map((g)=><button>{g}</button>)}
+            <span>Genres:</span>
+            <div className="dropdown-genres-container">
+                {GENRES.map((g)=><button className="dropdown-genre">{g}</button>)}
+            </div>
+            <button className="dropdown-showall">Show All Games</button>
         </div>
     </>
 }
