@@ -100,3 +100,45 @@
 .login-button:active {
     background-color: #ff9a00;
 }
+
+@keyframes dropdown-open {
+    0% {
+        opacity: 0;
+        scale: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.dropdown {
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    top: 65px;
+    left: calc(10% + 120px);
+    justify-content: space-between;
+    padding: 10px;
+    align-items: start;
+    background-color: #00a2ff;
+    width: 350px;
+    border-radius: 10px;
+    animation: dropdown-open ease-in-out 300ms forwards;
+}
+.dropdown>button {
+    background-color: white;
+    color: black;
+    border: none;
+    height: 30px;
+    font-size: medium;
+    margin: 2px;
+    border-radius: 10px;
+    padding: 5px;
+    transition: 300ms;
+}
+.dropdown>button:hover {
+    background-color: rgb(220, 220, 220);
+    scale: 1.1;
+}
+.dropdown>button:active {
+    background-color: rgb(200, 200, 200);
+}
