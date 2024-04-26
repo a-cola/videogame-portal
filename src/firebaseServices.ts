@@ -23,7 +23,7 @@ export const getGameList = async (genre?:string) => {
     const gameCollection = collection(db, "videogames");
     const gameQuery = genre===undefined
         ?query(gameCollection, orderBy("title", "asc"))
-        :query(gameCollection, where("genres", "array-contains", genre))
+        :query(gameCollection, where("genres", "array-contains", genre), orderBy("title", "asc"))
     const gameSnapshot = await getDocs(gameQuery);
     const gameList:Game[] = gameSnapshot.docs.map(doc => ({id:doc.id, ...(doc.data() as GameData)}));
     return gameList;
