@@ -68,7 +68,9 @@ function MenuDropdown() {
                     className="dropdown-genre"
                     onClick={()=>navigate(`/genres/${g}`)}>{g}</button>)}
             </div>
-            <button className="dropdown-showall">Show All Games</button>
+            <button 
+                className="dropdown-showall"
+                onClick={()=>navigate(`/genres/all`)}>Show All Games</button>
         </div>
     </>
 }

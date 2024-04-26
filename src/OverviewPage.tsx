@@ -1,20 +1,18 @@
-import { useContext, useEffect, useState } from "react"
-import { GamesContext } from "./GamesContext"
+import { useEffect, useState } from "react"
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { Game, getGameList } from "./firebaseServices";
 import { useLoaderData, useNavigate } from "react-router-dom";
 
 export function OverviewPage () {
-    const gameCtx = useContext(GamesContext);
-
     const label = useLoaderData() as string;
 
     const [gameList, setGameList] = useState<Game[]|null>(null)
 
     useEffect(()=>{
-        if(label==="all")
-            setGameList(gameCtx.gameList);
+        if(label==="all") {
+            getGameList().then(gl=>setGameList(gl));
+        }
         else
             getGameList(label).then(gl=>setGameList(gl));
     }, [label])
