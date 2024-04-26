@@ -8,6 +8,7 @@ import { GamesProvider } from './GamesContext';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { GamePage } from './GamePage';
+import { OverviewPage } from './OverviewPage';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDj-HwsjG8HoEI0Xb7rsC4ORC2S6RbekRc",
@@ -25,6 +26,7 @@ export const db = getFirestore(app);
 const router = createBrowserRouter(
   [
     { path:'/', element:<HomePage />, errorElement: <span>Errore</span> },
+    { path:'/games', element:<OverviewPage />, errorElement: <span>Errore Overview</span>},
     { path:'/games/:id', element:<GamePage />, loader: listLoader, errorElement: <span>Errore Pagina Game</span>}
   ]
 )

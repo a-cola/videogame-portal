@@ -1,0 +1,44 @@
+.overview-page-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+.overview-games-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 90%;
+    justify-content: center;
+}
+.game-slot {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 300px;
+    background-color: rgb(50, 50, 50);
+    border-radius: 10px;
+    margin: 10px;
+    transition: 300ms;
+}
+.game-slot:hover {
+    scale: 1.1;
+    background-color: rgb(65, 65, 65);
+}
+.game-slot:active {
+    background-color: rgb(80, 80, 80);
+}
+.game-slot>img {
+    width: 100px;
+    border-radius: 10px;
+}
+.game-slot>span {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: bold;
+    font-size: large;
+    padding: 10px;
+}
