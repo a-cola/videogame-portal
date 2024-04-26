@@ -39,7 +39,10 @@ function GameBig ({game}:{game:Game}) {
                 <span className="game-big-year">{game.year}</span>
                 <span className="game-big-genres">
                     {game.genres.map(genre => {
-                        return <span className="game-big-genre" key={genre}>{genre}</span>
+                        return <span 
+                            className="game-big-genre" 
+                            key={genre}
+                            onClick={()=>navigate(`/genres/${genre}`)}>{genre}</span>
                     })}
                 </span>
             </div>
