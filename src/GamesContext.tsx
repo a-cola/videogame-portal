@@ -38,9 +38,12 @@ export const GamesProvider = ({children}:{children:any}) => {
     }, [])
 
     const updateFourGames = () => {
-        fourGames.shift();
-        let newFourGames = [...fourGames, gameList[Math.floor(Math.random() * gameList.length)]];
-        setFourGames(newFourGames);
+        setFourGames((prevFourGames) => {
+            const newFourGames = [...prevFourGames];
+            newFourGames.shift();
+            newFourGames.push(gameList[Math.floor(Math.random() * gameList.length)]);
+            return newFourGames;
+        });
     }
 
     return <>

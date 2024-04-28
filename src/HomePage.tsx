@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { GamesContext } from "./GamesContext";
@@ -15,7 +15,7 @@ export function HomePage () {
         <Header />
         <section className="home-page-container">
             <div className="main-viewer">
-                <GameBig game={gameCtx.fourGames[0]}/>
+                <GameBig game={gameCtx.fourGames[0]} updateGames={gameCtx.updateFourGames}/>
                 <div className="main-viewer-list">
                     {gameCtx.fourGames.slice(1).map(g => {
                         return <GameSmall game={g} key={g.id}/>
@@ -29,10 +29,12 @@ export function HomePage () {
     </>
 }
 
-function GameBig ({game}:{game:Game}) {
+function GameBig ({game, updateGames}:{game:Game, updateGames:()=>void}) {
     const navigate = useNavigate();
+
     return <>
         <div className="game-big">
+            <ProgressBar onProgressComplete={updateGames}/>
             <img src={game.imgUrl} onClick={()=>navigate(`/games/${game.id}`)}/>
             <div className="game-big-info">
                 <span className="game-big-title" onClick={()=>navigate(`/games/${game.id}`)}>{game.title}</span>
@@ -119,5 +121,29 @@ function GameCarousel({gameList, title}:{gameList:Game[], title:string}) {
                 </div>
             </div>
         </div>
+    </>
+}
+
+function ProgressBar({onProgressComplete}:{onProgressComplete:()=>void}) {
+    const [progress, setProgress] = useState<number>(0);
+
+    useEffect(()=>{
+        if(progress >= 100) {
+            onProgressComplete();
+            setProgress(0);
+        }
+    }, [progress, onProgressComplete]);
+    
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setProgress((oldProgress) => oldProgress + 5)
+        }, 1000);
+        return () => {
+            clearInterval(interval);
+        };
+    }, []);
+
+    return <>
+        <div className="progress-bar" style={{width:`${progress}%`}}/>
     </>
 }
