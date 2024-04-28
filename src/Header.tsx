@@ -17,7 +17,7 @@ export function Header() {
                 type="button"
                 onClick={()=>navigate('/')}
             >
-                <img className="vgp-logo" src="../public/VGP_Logo.png" alt="vgp logo"/>
+                <img className="vgp-logo" src="../VGP_Logo.png" alt="vgp logo"/>
             </button>
             <button className="menu" type="button" onClick={()=>setOpen(!open)} style={open?{backgroundColor:"#00a2ff"}:{}}>
                 <MenuIcon />
