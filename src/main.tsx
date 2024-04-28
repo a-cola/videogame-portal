@@ -10,6 +10,7 @@ import { getFirestore } from 'firebase/firestore';
 import { GamePage } from './GamePage';
 import { OverviewPage } from './OverviewPage';
 import { LoginPage } from './LoginPage';
+import { UserProvider } from './UserContext';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDj-HwsjG8HoEI0Xb7rsC4ORC2S6RbekRc",
@@ -44,7 +45,9 @@ function listLoaderLabel({params}:any) {
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <GamesProvider>
-      <RouterProvider router={router}/>
+      <UserProvider>
+        <RouterProvider router={router}/>
+      </UserProvider>
     </GamesProvider>
   </React.StrictMode>,
 )
