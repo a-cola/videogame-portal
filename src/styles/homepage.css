@@ -9,7 +9,9 @@
     justify-content: center;
     background-color: rgb(50, 50, 50);
     border-radius: 10px;
-    width: 1000px;
+    width: fit-content;
+    min-width: 1000px;
+    max-width: 1200px;
     height: 565px;
     margin: 30px;
 }
@@ -40,7 +42,7 @@
     font-size: xxx-large;
     font-weight: bold;
 }
-.game-big-title:hover, .game-big-year:hover, .game-big-genre:hover {
+.game-big-title:hover, .game-big-genre:hover {
     text-decoration: underline;
     cursor: pointer;
 }
@@ -77,6 +79,7 @@
 }
 .game-small>img{
     height: 120px;
+    border-radius: 10px;
 }
 .game-small>img:hover{
     cursor: pointer;;
