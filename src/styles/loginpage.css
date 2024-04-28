@@ -14,6 +14,25 @@
     background-color: rgb(50, 50, 50);
     border-radius: 10px;
     padding: 10px;
+    position: relative;
+}
+.to-home-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    border: none;
+    background-color: transparent;
+    top: 10px;
+    right: 10px;
+    height: 30px;
+    width: 30px;
+    font-size: 30px;
+    transition: 300ms;
+    border-radius: 10px;
+}
+.to-home-button:hover {
+    background-color: rgb(80, 80, 80);
 }
 .login-form {
     display: flex;
