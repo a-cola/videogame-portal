@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { GoogleIcon } from "./Icons";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth } from "./main";
-import { GoogleAuthProvider } from "firebase/auth/cordova";
+import { GoogleAuthProvider } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 export function LoginPage () {

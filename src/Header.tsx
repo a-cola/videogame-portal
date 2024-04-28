@@ -1,9 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { GamepadIcon, MenuIcon, SearchIcon } from "./Icons";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "./UserContext";
 
 export function Header() {
     const navigate = useNavigate();
+
+    const userCtx = useContext(UserContext);
 
     const [open, setOpen] = useState(false);
 
@@ -32,9 +35,15 @@ export function Header() {
                 <GamepadIcon />
                 <span>MyGames</span>
             </button>
-            <button className="login-button" type="button">
+            {userCtx?.currentUser===null
+            ?<button className="login-button" type="button" onClick={()=>navigate('/login')}>
                 <span>Sign In</span>
             </button>
+            :<button className="login-button" type="button" onClick={userCtx?.logout}>
+                <span>Logout</span>
+            </button>
+            }
+            
         </nav>
         {open?<MenuDropdown/>:<></>}
     </>
