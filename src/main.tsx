@@ -9,6 +9,7 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { GamePage } from './GamePage';
 import { OverviewPage } from './OverviewPage';
+import { LoginPage } from './LoginPage';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDj-HwsjG8HoEI0Xb7rsC4ORC2S6RbekRc",
@@ -26,6 +27,7 @@ export const db = getFirestore(app);
 const router = createBrowserRouter(
   [
     { path:'/', element:<HomePage />, errorElement: <span>Errore</span> },
+    { path:'/login', element:<LoginPage />, errorElement: <span>Errore Login</span>},
     { path:'/genres/:label', element:<OverviewPage />, loader:listLoaderLabel, errorElement: <span>Errore Overview</span>},
     { path:'/games/:id', element:<GamePage />, loader: listLoaderId, errorElement: <span>Errore Pagina Game</span>}
   ]
