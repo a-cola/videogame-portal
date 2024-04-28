@@ -15,21 +15,21 @@ export function LoginPage () {
         const provider = new GoogleAuthProvider();
         
         signInWithPopup(auth, provider)
-            .then(() => navigate('/'))
+            .then(() => navigate(-1))
             .catch((error) => console.error(error))
     }
 
     const login = () => {
         if(emailRef.current!.value !== null && passwordRef.current!.value !== null)
             signInWithEmailAndPassword(auth, emailRef.current!.value, passwordRef.current!.value)
-                .then(()=>navigate('/'))
+                .then(()=>navigate(-1))
                 .catch((error) => console.error(error));
     }
 
     const register = () => {
         if(emailRef.current!.value !== null && passwordRef.current!.value !== null)
             createUserWithEmailAndPassword(auth, emailRef.current!.value, passwordRef.current!.value)
-                .then(()=>navigate('/'))
+                .then(()=>navigate(-1))
                 .catch((error) => console.error(error));
     }
 

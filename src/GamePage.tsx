@@ -1,22 +1,49 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom"
-import { Game, getGameById } from "./firebaseServices";
+import { Game, UserGame, addGameToUser, deleteGameFromUser, getGameById, getGameFromUser } from "./firebaseServices";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { AppleIcon, PlaystationIcon, SwitchIcon, WindowsIcon, XboxIcon } from "./Icons";
+import { UserContext } from "./UserContext";
 
 export function GamePage () {
     const id = useLoaderData() as string;
 
+    const userCtx = useContext(UserContext);
+
     const navigate = useNavigate();
 
     const [game, setGame] = useState<Game|null>(null);
+    const [userHasGame, setUserHasGame] = useState(false);
 
     useEffect(() => {
         getGameById(id).then(g => {
             setGame(g);
         })
     }, [])
+
+    useEffect(() => {
+        if(userCtx!.currentUser !== null)
+            getGameFromUser(userCtx!.currentUser.uid, id).then(g => {
+                if(g!==null) setUserHasGame(true);
+            })
+        else
+            setUserHasGame(false);
+    }, [game, userCtx?.currentUser, userHasGame])
+
+    const addToMyGames = () => {
+        if(userCtx!.currentUser == null)
+            navigate("/login");
+        else {
+            addGameToUser(userCtx!.currentUser.uid, id, {} as UserGame);
+            setUserHasGame(true);
+        }
+    }
+
+    const deleteFromMyGames = () => {
+        deleteGameFromUser(userCtx!.currentUser!.uid, id);
+        setUserHasGame(false);
+    }
 
     const iconSelector = (platform:string) => {
         switch(platform) {
@@ -71,8 +98,13 @@ export function GamePage () {
                             </div>
                         </div>
                         <div className="game-buttons">
-                            <button>+ Add to MyGames</button>
-                            <button>Vote</button>
+                            {userHasGame
+                            ?<>
+                                <button onClick={deleteFromMyGames}>- Remove from MyGames</button>
+                                <button>Vote</button>
+                            </>
+                            :<button onClick={addToMyGames}>+ Add to MyGames</button>
+                            }
                         </div>
                     </div>
                 </div>

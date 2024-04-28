@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, limit, orderBy, query, where} from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, getDocs, limit, orderBy, query, setDoc, where} from "firebase/firestore";
 import { db } from "./main";
 
 export interface GameData {
@@ -17,6 +17,15 @@ export interface GameData {
 
 export interface Game extends GameData {
     id: string;
+}
+
+export interface UserGame {
+    plot: number;
+    graphics: number;
+    audio: number;
+    enviroment: number;
+    gameplay: number;
+    vote: number;
 }
 
 export const getGameList = async (genre?:string) => {
@@ -50,4 +59,23 @@ export const getGameById = async (id:string) => {
     const gameSnapshot = await getDoc(gameDocRef);
     const game:Game = gameSnapshot.data() as Game;
     return game;
+}
+
+export const addGameToUser = async (uid:string, gameId:string, game:UserGame) => {
+    const gameDocRef = doc(db, "users", uid, "mygames", gameId);
+    await setDoc(gameDocRef, game);
+}
+
+export const getGameFromUser = async (uid:string, gameId:string) => {
+    const gameDocRef = doc(db, "users", uid, "mygames", gameId);
+    const gameSnapshot = await getDoc(gameDocRef);
+    if(gameSnapshot.exists())
+        return gameSnapshot.data() as UserGame;
+    else
+        return null
+}
+
+export const deleteGameFromUser = async (uid:string, gameId:string) => {
+    const gameDocRef = doc(db, "users", uid, "mygames", gameId);
+    await deleteDoc(gameDocRef);
 }
