@@ -187,3 +187,80 @@ circle {
     transform: rotate(135deg);
     transform-origin: 50% 50%;
 }
+
+.vote-modal {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+
+    background-color:rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+.vote-modal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    background-color: rgb(80, 80, 80);
+    position: relative;
+    padding: 20px;
+}
+.vote-modal-top, .vote-modal-bottom {
+    display: flex;
+    justify-content: center;
+}
+.vote-modal-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    width: 120px;
+}
+.vote-modal-box>input {
+    width: 100px;
+    height: 70px;
+    border-radius: 10px;
+    border: none;
+    color: black;
+    font-size: 30px;
+    text-align: center;
+}
+.vote-modal-box>span {
+    margin-top: 5px;
+    font-size: 22px;
+}
+.vote-exit-button {
+    display: flex;
+    height: 40px;
+    width: 40px;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    font-size: 40px;
+    right: 10px;
+    top: 10px;
+    position: absolute;
+    border-radius: 10px;
+    transition: 300ms;
+}
+.vote-exit-button:hover {
+    background-color: rgb(100, 100, 100);
+}
+.vote-button {
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    font-size: 25px;
+    transition: 300ms;
+    padding: 10px;
+    width: 100px;
+}
+.vote-button:hover {
+    background-color: #ff9a00;
+}
+.vote-error {
+    color: red
+}

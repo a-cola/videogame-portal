@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { forwardRef, useContext, useEffect, useRef, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom"
-import { Game, UserGame, addGameToUser, deleteGameFromUser, getGameById, getGameFromUser } from "./firebaseServices";
+import { Game, UserVotes, addGameToUser, deleteGameFromUser, getGameById, getGameFromUser } from "./firebaseServices";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { AppleIcon, PlaystationIcon, SwitchIcon, WindowsIcon, XboxIcon } from "./Icons";
@@ -15,6 +15,8 @@ export function GamePage () {
 
     const [game, setGame] = useState<Game|null>(null);
     const [userHasGame, setUserHasGame] = useState(false);
+
+    const [voteVisibility, setVoteVisibility] = useState("none");
 
     useEffect(() => {
         getGameById(id).then(g => {
@@ -35,7 +37,7 @@ export function GamePage () {
         if(userCtx!.currentUser == null)
             navigate("/login");
         else {
-            addGameToUser(userCtx!.currentUser.uid, id, {} as UserGame);
+            addGameToUser(userCtx!.currentUser.uid, id, {} as UserVotes);
             setUserHasGame(true);
         }
     }
@@ -43,6 +45,11 @@ export function GamePage () {
     const deleteFromMyGames = () => {
         deleteGameFromUser(userCtx!.currentUser!.uid, id);
         setUserHasGame(false);
+    }
+
+    const addVote = (game:UserVotes) => {
+        addGameToUser(userCtx!.currentUser!.uid, id, game);
+        setVoteVisibility("none");
     }
 
     const iconSelector = (platform:string) => {
@@ -63,6 +70,7 @@ export function GamePage () {
     if(game===null) return <></>
 
     return <>
+        <VoteModal voteVisibility={voteVisibility} setVoteVisibility={setVoteVisibility} addVote={addVote}/>
         <Header />
         <section className="game-page-container">
             <div className="game-container">
@@ -101,7 +109,7 @@ export function GamePage () {
                             {userHasGame
                             ?<>
                                 <button onClick={deleteFromMyGames}>- Remove from MyGames</button>
-                                <button>Vote</button>
+                                <button onClick={()=>setVoteVisibility("flex")}>Vote</button>
                             </>
                             :<button onClick={addToMyGames}>+ Add to MyGames</button>
                             }
@@ -181,3 +189,80 @@ function CircularProgressBar ({value, dim, color}:{value:number, dim:number, col
         </svg>
   );
 }
+
+function VoteModal ({voteVisibility, setVoteVisibility, addVote}:{voteVisibility:string, setVoteVisibility:React.Dispatch<React.SetStateAction<string>>, addVote:(game: UserVotes) => void}) {
+    const plotRef = useRef<HTMLInputElement>(null);
+    const gameplayRef = useRef<HTMLInputElement>(null);
+    const graphicsRef = useRef<HTMLInputElement>(null);
+    const audioRef = useRef<HTMLInputElement>(null);
+    const enviromentRef = useRef<HTMLInputElement>(null);
+
+    const voteRefs = [
+        plotRef, gameplayRef, graphicsRef,
+        audioRef, enviromentRef
+    ]
+
+    const [voteError, setVoteError] = useState(false);
+
+    const checkVotes = () => {
+        let sum = 0;
+        for(let r of voteRefs) {
+            let number = Number(r.current?.value);
+            if(number < 1 || number > 10 || isNaN(number)) {
+                setVoteError(true);
+                return null;
+            }
+            sum += number;
+        }
+        let avg = Math.floor((sum/5*10))/10;
+        setVoteError(false);
+        return avg;
+    }
+
+    const handleVote = () => {
+        let userVotes:UserVotes;
+        let avg = checkVotes();
+
+        if(avg == null) return;
+
+        userVotes = {
+            plot:Number(plotRef.current?.value),
+            gameplay:Number(gameplayRef.current?.value),
+            graphics:Number(graphicsRef.current?.value),
+            audio:Number(audioRef.current?.value),
+            enviroment:Number(enviromentRef.current?.value),
+            vote:avg,
+        }
+
+        addVote(userVotes);
+        setVoteVisibility("none");
+    }
+
+    return <>
+        <div className="vote-modal" style={{display:`${voteVisibility}`}}>
+            <div className="vote-modal-container">
+                <button className="vote-exit-button" onClick={()=>setVoteVisibility("none")}>&times;</button>
+                {voteError?<span className="vote-error">Controllare i voti e riprovare...</span>:<></>}
+                <div className="vote-modal-top">
+                    <VoteModalBox ref={plotRef} label="Plot/Concept"/>
+                    <VoteModalBox ref={gameplayRef} label="Gameplay"/>
+                </div>
+                <div className="vote-modal-bottom">
+                    <VoteModalBox ref={graphicsRef} label="Graphics"/>
+                    <VoteModalBox ref={audioRef} label="Audio"/>
+                    <VoteModalBox ref={enviromentRef} label="Enviroment"/>
+                </div>
+                <button className="vote-button" onClick={handleVote}>Vote</button>
+            </div>
+        </div>
+    </>
+}
+
+const VoteModalBox = forwardRef(({label}:{label:string},ref:any) => (
+    <>
+        <div className="vote-modal-box">
+            <input ref={ref} maxLength={3} placeholder="..."/>
+            <span>{label}</span>
+        </div>
+    </>
+));
