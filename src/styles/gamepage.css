@@ -75,10 +75,15 @@
     justify-content: center;
     align-items: center;
     background-color: gray;
+    border: none;
     width: fit-content;
     padding: 5px;
     margin: 5px 2px 0 2px;
     border-radius: 15px;
+    font-size: 15px;
+}
+.game-genre:hover {
+    text-decoration: underline;
 }
 .game-right {
     display: flex;

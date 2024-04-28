@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLoaderData } from "react-router-dom"
+import { useLoaderData, useNavigate } from "react-router-dom"
 import { Game, getGameById } from "./firebaseServices";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
@@ -7,6 +7,8 @@ import { AppleIcon, PlaystationIcon, SwitchIcon, WindowsIcon, XboxIcon } from ".
 
 export function GamePage () {
     const id = useLoaderData() as string;
+
+    const navigate = useNavigate();
 
     const [game, setGame] = useState<Game|null>(null);
 
@@ -48,7 +50,7 @@ export function GamePage () {
                     <div className="game-left">
                         <img src={game.imgUrl}/>
                         <div className="game-genres">
-                            {game.genres.map(genre => <span key={genre} className="game-genre">{genre}</span>)}
+                            {game.genres.map(genre => <button key={genre} className="game-genre" onClick={()=>navigate(`/genres/${genre}`)}>{genre}</button>)}
                         </div>
                     </div>
                     <div className="game-right">
