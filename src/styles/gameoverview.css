@@ -36,6 +36,7 @@
 .game-slot:hover {
     scale: 1.1;
     background-color: rgb(65, 65, 65);
+    cursor: pointer;
 }
 .game-slot:active {
     background-color: rgb(80, 80, 80);

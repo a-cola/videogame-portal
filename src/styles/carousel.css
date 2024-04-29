@@ -37,6 +37,7 @@
 }
 .carousel-game:hover {
     transform: scale(1.2) !important;
+    cursor: pointer;
 }
 .carousel-game:hover ~ .carousel-game {
     transform: translateX(10%);
