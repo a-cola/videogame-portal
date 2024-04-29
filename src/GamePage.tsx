@@ -1,4 +1,4 @@
-import { forwardRef, useContext, useEffect, useRef, useState } from "react";
+import { ForwardedRef, forwardRef, useContext, useEffect, useRef, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom"
 import { Game, GameData, UserVotes, addGameToUser, addGameVote, deleteGameFromUser, getGameById, getGameFromUser } from "./firebaseServices";
 import { Header } from "./Header";
@@ -308,7 +308,7 @@ function VoteModal ({voteVisibility, setVoteVisibility, addVote}:{voteVisibility
     </>
 }
 
-const VoteModalBox = forwardRef(({label}:{label:string},ref:any) => (
+const VoteModalBox = forwardRef(({label}:{label:string},ref:ForwardedRef<HTMLInputElement>) => (
     <>
         <div className="vote-modal-box">
             <input ref={ref} maxLength={3} placeholder="..."/>
