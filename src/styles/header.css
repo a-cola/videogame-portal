@@ -121,6 +121,7 @@
     width: 350px;
     border-radius: 10px;
     animation: dropdown-open ease-in-out 300ms forwards;
+    z-index: 1;
 }
 .dropdown-genres-container {
     display: flex;

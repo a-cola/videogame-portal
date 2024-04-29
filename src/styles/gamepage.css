@@ -224,15 +224,32 @@ circle {
     transform-origin: 50% 50%;
 }
 
+@keyframes modal-appear {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
 .vote-modal {
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 100%;
     position: fixed;
-
     background-color:rgba(0, 0, 0, 0.5);
-    z-index: 1;
+    z-index: 2;
+    animation: modal-appear 300ms ease-in-out forwards;
+}
+@keyframes modal-container-appear {
+    0% {
+        opacity: 0;
+        scale: 0.9;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 .vote-modal-container {
     display: flex;
@@ -242,6 +259,7 @@ circle {
     background-color: rgb(80, 80, 80);
     position: relative;
     padding: 20px;
+    animation: modal-appear 500ms ease-in-out forwards;
 }
 .vote-modal-top, .vote-modal-bottom {
     display: flex;

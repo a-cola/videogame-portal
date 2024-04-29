@@ -63,7 +63,7 @@ export function MyGamesPage () {
             <span className="my-games-title">My Games</span>
             <div className="my-games-stats">
                 <div className="games-owned">
-                    <span className="games-owned-label">Games owned:</span>
+                    <span className="games-owned-label">Owned Games:</span>
                     <span className="games-number">{gameList.length}</span>
                 </div>
                 <div className="vl-l"/>
@@ -73,7 +73,7 @@ export function MyGamesPage () {
                 </div>
                 <div className="vl-r"/>
                 <div className="popular-genre">
-                    <span className="popular-genre-label">Most played genre:</span>
+                    <span className="popular-genre-label">Most Played Genre:</span>
                     <span className="popular-genre-title">{gameList.length>0?mostPlayedGenre:" - "}</span>
                 </div>
             </div>
