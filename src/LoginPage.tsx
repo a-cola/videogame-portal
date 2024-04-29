@@ -36,7 +36,7 @@ export function LoginPage () {
     return <>
         <div className="login-container">
             <div className="login-form-container">
-                <button className="to-home-button" onClick={()=>navigate('/')}>&times;</button>
+                <button className="to-home-button" onClick={()=>navigate(-1)}>&times;</button>
                 <div className="login-form">
                     <img src="./VGP_Logo.png" />
                     <input
