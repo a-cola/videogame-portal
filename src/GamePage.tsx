@@ -15,6 +15,8 @@ export function GamePage () {
 
     const [game, setGame] = useState<Game|null>(null);
     const [userHasGame, setUserHasGame] = useState(false);
+    const [userGame, setUserGame] = useState<Game|null>(null);
+    const [lastVote, setLastVote] = useState<number>(Date.now());
 
     const [voteVisibility, setVoteVisibility] = useState("none");
 
@@ -25,13 +27,19 @@ export function GamePage () {
     }, [])
 
     useEffect(() => {
+        console.log("pippo")
         if(userCtx!.currentUser !== null)
             getGameFromUser(userCtx!.currentUser.uid, id).then(g => {
-                if(g!==null) setUserHasGame(true);
+                if(g!==null) {
+                    setUserHasGame(true);
+                    setUserGame(g);
+                }
             })
-        else
+        else {
             setUserHasGame(false);
-    }, [game, userCtx?.currentUser, userHasGame])
+            setUserGame(null);
+        }
+    }, [game, userCtx?.currentUser, userHasGame, lastVote])
 
     const addToMyGames = () => {
         if(userCtx!.currentUser == null)
@@ -62,6 +70,7 @@ export function GamePage () {
 
     const addVote = (votes:UserVotes) => {
         addGameVote(userCtx!.currentUser!.uid, id, votes);
+        setLastVote(Date.now());
         setVoteVisibility("none");
     }
 
@@ -102,22 +111,45 @@ export function GamePage () {
                         </div>
                     </div>
                     <div className="game-right">
-                        <div className="game-votes">
+                        {userHasGame&&userGame!=null
+                        ?<div className="game-votes-user">
+                            <span className="game-vote-vgp-title">VGP votes:</span>
+                            <div className="game-vote-vgp">
+                                <Vote title="plot" value={game.plot} dim={85} color="#ffc400" stroke={10}/>
+                                <Vote title="gameplay" value={game.gameplay} dim={85} color="#ffc400" stroke={10}/>
+                                <Vote title="graphics" value={game.graphics} dim={85} color="#ffc400" stroke={10}/>
+                                <Vote title="audio" value={game.audio} dim={85} color="#ffc400" stroke={10}/>
+                                <Vote title="enviroment" value={game.enviroment} dim={85} color="#ffc400" stroke={10}/>
+                                <Vote title="vote" value={game.vote} dim={105} color="#b700ff" stroke={10}/>
+                            </div>
+                            <span className="game-vote-user-title">Your votes:</span>
+                            <div className="game-vote-user">
+                                <Vote title="plot" value={userGame!.plot} dim={85} color="#ff9a00" stroke={10}/>
+                                <Vote title="gameplay" value={userGame!.gameplay} dim={85} color="#ff9a00" stroke={10}/>
+                                <Vote title="graphics" value={userGame!.graphics} dim={85} color="#ff9a00" stroke={10}/>
+                                <Vote title="audio" value={userGame!.audio} dim={85} color="#ff9a00" stroke={10}/>
+                                <Vote title="enviroment" value={userGame!.enviroment} dim={85} color="#ff9a00" stroke={10}/>
+                                <Vote title="vote" value={userGame!.vote} dim={105} color="#00a2ff" stroke={10}/>
+                            </div>
+                        </div>
+                        :<div className="game-votes">
                             <div className="game-vote-singles">
                                 <div className="game-vote-top">
-                                    <Vote title="plot" value={game.plot}/>
-                                    <Vote title="gameplay" value={game.gameplay}/>
+                                    <Vote title="plot" value={game.plot} dim={120} color="#ffc400" stroke={20}/>
+                                    <Vote title="gameplay" value={game.gameplay} dim={120} color="#ffc400" stroke={20}/>
                                 </div>
                                 <div className="game-vote-bottom">
-                                    <Vote title="graphics" value={game.graphics}/>
-                                    <Vote title="audio" value={game.audio}/>
-                                    <Vote title="enviroment" value={game.enviroment}/>
+                                    <Vote title="graphics" value={game.graphics} dim={120} color="#ffc400" stroke={20}/>
+                                    <Vote title="audio" value={game.audio} dim={120} color="#ffc400" stroke={20}/>
+                                    <Vote title="enviroment" value={game.enviroment} dim={120} color="#ffc400" stroke={20}/>
                                 </div>
                             </div>
                             <div className="game-vote-avg">
-                                <Vote title="vote" value={game.vote}/>
+                                <Vote title="vote" value={game.vote} dim={150} color="#b700ff" stroke={20}/>
                             </div>
                         </div>
+                        }
+                            
                         <div className="game-buttons">
                             {userHasGame
                             ?<>
@@ -135,7 +167,7 @@ export function GamePage () {
     </>
 }
 
-function Vote ({title, value}:{title:string, value:number}) {
+function Vote ({title, value, dim, color, stroke}:{title:string, value:number, dim:number, color:string, stroke:number}) {
     const titleConverter = () => {
         switch(title) {
             case "plot":
@@ -155,17 +187,22 @@ function Vote ({title, value}:{title:string, value:number}) {
 
     return <>
         <div className="game-vote-single">
+            <CircularProgressBar value={value} dim={dim} color={color} stroke={stroke}/>
             {title==="vote"
-            ?<CircularProgressBar value={value} dim={150} color="#b700ff"/>
-            :<CircularProgressBar value={value} dim={120} color="#ffc400"/>
+            ?<>
+                <span className="game-vote-value-avg">{value}</span>
+                <span className="game-vote-title-avg">{titleConverter()}</span>
+            </>
+            :<>
+                <span className="game-vote-value">{value}</span>
+                <span className="game-vote-title">{titleConverter()}</span>
+            </>
             }
-            <span className="game-vote-value" style={title==="vote"?{fontSize:"60px"}:{}}>{value}</span>
-            <span className="game-vote-title" style={title==="vote"?{fontSize:"xx-large", marginTop:"20px"}:{}}>{titleConverter()}</span>
         </div>
     </>
 }
 
-function CircularProgressBar ({value, dim, color}:{value:number, dim:number, color:string}) {
+function CircularProgressBar ({value, dim, color, stroke}:{value:number, dim:number, color:string, stroke:number}) {
     const radius = (dim-20)/2;
     const circumference = 2 * Math.PI * radius;
     const offset = (10-value)/10*(circumference - (90 / 360) * circumference);
@@ -178,7 +215,7 @@ function CircularProgressBar ({value, dim, color}:{value:number, dim:number, col
             r={radius}
             fill="none"
             stroke="transparent"
-            strokeWidth="20"
+            strokeWidth={stroke}
           />
           <circle
             cx={dim/2}
@@ -186,7 +223,7 @@ function CircularProgressBar ({value, dim, color}:{value:number, dim:number, col
             r={radius}
             fill="none"
             stroke="gray"
-            strokeWidth="20"
+            strokeWidth={stroke}
             strokeDasharray={`${circumference - (90 / 360) * circumference} ${circumference}`}
           />
           <circle
@@ -195,7 +232,7 @@ function CircularProgressBar ({value, dim, color}:{value:number, dim:number, col
             r={radius}
             fill="none"
             stroke={color}
-            strokeWidth="20"
+            strokeWidth={stroke}
             strokeDasharray={`${circumference - (90 / 360) * circumference} ${circumference}`}
             strokeDashoffset={offset}
           />

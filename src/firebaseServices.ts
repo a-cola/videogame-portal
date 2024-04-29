@@ -83,7 +83,7 @@ export const getGameFromUser = async (uid:string, gameId:string) => {
     const gameDocRef = doc(db, "users", uid, "mygames", gameId);
     const gameSnapshot = await getDoc(gameDocRef);
     if(gameSnapshot.exists())
-        return gameSnapshot.data() as UserVotes;
+        return gameSnapshot.data() as Game;
     else
         return null
 }
