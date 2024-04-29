@@ -45,11 +45,11 @@ export function Header() {
             }
             
         </nav>
-        {open?<MenuDropdown/>:<></>}
+        {open?<MenuDropdown setOpen={setOpen}/>:<></>}
     </>
 }
 
-function MenuDropdown() {
+function MenuDropdown({setOpen}:{setOpen:React.Dispatch<React.SetStateAction<boolean>>}) {
     const GENRES = [
         'Action',        'Adventure',
         'Battle Royale', 'Card',
@@ -76,11 +76,11 @@ function MenuDropdown() {
                 {GENRES.map((g)=><button
                     key={g}
                     className="dropdown-genre"
-                    onClick={()=>navigate(`/genres/${g}`)}>{g}</button>)}
+                    onClick={()=>{navigate(`/genres/${g}`); setOpen(false)}}>{g}</button>)}
             </div>
             <button 
                 className="dropdown-showall"
-                onClick={()=>navigate(`/genres/all`)}>Show All Games</button>
+                onClick={()=>{navigate(`/genres/all`); setOpen(false)}}>Show All Games</button>
         </div>
     </>
 }
