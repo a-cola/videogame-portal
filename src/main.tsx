@@ -11,6 +11,7 @@ import { GamePage } from './GamePage';
 import { OverviewPage } from './OverviewPage';
 import { LoginPage } from './LoginPage';
 import { UserProvider } from './UserContext';
+import { MyGamesPage } from './MyGamesPage';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDj-HwsjG8HoEI0Xb7rsC4ORC2S6RbekRc",
@@ -30,7 +31,8 @@ const router = createBrowserRouter(
     { path:'/', element:<HomePage />, errorElement: <span>Errore</span> },
     { path:'/login', element:<LoginPage />, errorElement: <span>Errore Login</span>},
     { path:'/genres/:label', element:<OverviewPage />, loader:listLoaderLabel, errorElement: <span>Errore Overview</span>},
-    { path:'/games/:id', element:<GamePage />, loader: listLoaderId, errorElement: <span>Errore Pagina Game</span>}
+    { path:'/games/:id', element:<GamePage />, loader: listLoaderId, errorElement: <span>Errore Pagina Game</span>},
+    { path:'/mygames', element:<MyGamesPage />, errorElement: <span>Errore MyGames</span>}
   ]
 )
 

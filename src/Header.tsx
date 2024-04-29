@@ -31,7 +31,7 @@ export function Header() {
                 />
                 <SearchIcon />
             </div>
-            <button className="mygames-button" type="button">
+            <button className="mygames-button" type="button" onClick={()=>{userCtx?.currentUser==null?navigate("/login"):navigate("/mygames")}}>
                 <GamepadIcon />
                 <span>MyGames</span>
             </button>

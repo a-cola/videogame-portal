@@ -19,14 +19,6 @@ export interface Game extends GameData {
     id: string;
 }
 
-export interface UserGame {
-    title: string;
-    year: number;
-    genres: string[];
-    platforms: string[];
-    imgUrl: string;
-}
-
 export interface UserVotes {
     plot: number;
     graphics: number;
@@ -69,14 +61,22 @@ export const getGameById = async (id:string) => {
     return game;
 }
 
-export const addGameToUser = async (uid:string, gameId:string, gameData:UserGame) => {
+export const addGameToUser = async (uid:string, gameId:string, gameData:GameData) => {
     const gameDocRef = doc(db, "users", uid, "mygames", gameId);
     await setDoc(gameDocRef, gameData);
 }
 
 export const addGameVote = async (uid:string, gameId:string, gameVotes:UserVotes) => {
     const gameDocRef = doc(db, "users", uid, "mygames", gameId);
-    await setDoc(gameDocRef, gameVotes);
+    await setDoc(gameDocRef, gameVotes, {merge:true});
+}
+
+export const getUserGames = async (uid:string) => {
+    const gameCollection = collection(db, "users", uid, "mygames");
+    const gameQuery = query(gameCollection, orderBy("title", "asc"));
+    const gameSnapshot = await getDocs(gameQuery);
+    const userGames:Game[] = gameSnapshot.docs.map(doc => ({id:doc.id, ...(doc.data() as GameData)}));
+    return userGames;
 }
 
 export const getGameFromUser = async (uid:string, gameId:string) => {

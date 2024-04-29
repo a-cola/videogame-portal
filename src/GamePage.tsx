@@ -1,6 +1,6 @@
 import { forwardRef, useContext, useEffect, useRef, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom"
-import { Game, UserGame, UserVotes, addGameToUser, addGameVote, deleteGameFromUser, getGameById, getGameFromUser } from "./firebaseServices";
+import { Game, GameData, UserVotes, addGameToUser, addGameVote, deleteGameFromUser, getGameById, getGameFromUser } from "./firebaseServices";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { AppleIcon, PlaystationIcon, SwitchIcon, WindowsIcon, XboxIcon } from "./Icons";
@@ -37,8 +37,19 @@ export function GamePage () {
         if(userCtx!.currentUser == null)
             navigate("/login");
         else {
-            let userGame = game as UserGame;
-
+            let userGame:GameData = {
+                title:game!.title,
+                year:game!.year,
+                genres:[...game!.genres],
+                platforms:[...game!.platforms],
+                imgUrl:game!.imgUrl,
+                plot:0,
+                gameplay:0,
+                graphics:0,
+                audio:0,
+                enviroment:0,
+                vote:0
+            };
             addGameToUser(userCtx!.currentUser.uid, id, userGame);
             setUserHasGame(true);
         }

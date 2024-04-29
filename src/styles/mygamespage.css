@@ -1,0 +1,46 @@
+.my-games {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.my-games-title {
+    margin-top: 20px;
+    font-size: 32px;
+    font-weight: bold;
+}
+.my-games-stats {
+    display: flex;
+    width: 1100px;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: rgb(50, 50, 50);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+}
+.vl-l, .vl-r {
+    width: 0px;
+    height: 60px;
+    border-radius: 10px;
+    margin-top: -20px;
+    margin-bottom: -20px;
+}
+.vl-l {
+    border: solid 2px #ff9a00;
+}
+.vl-r {
+    border: solid 2px #00a2ff;
+}
+.games-owned, .best-score, .popular-genre {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.games-owned-label, .best-score-label, .popular-genre-label {
+    font-size: large;
+}
+.games-number, .best-score-name, .popular-genre-title {
+    font-size: 24px;
+    font-weight: bold;
+}
