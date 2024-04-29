@@ -39,7 +39,7 @@ export function Header() {
             ?<button className="login-button" type="button" onClick={()=>navigate('/login')}>
                 <span>Sign In</span>
             </button>
-            :<button className="login-button" type="button" onClick={userCtx?.logout}>
+            :<button className="login-button" type="button" onClick={()=>{userCtx?.logout(); navigate('/')}}>
                 <span>Logout</span>
             </button>
             }
