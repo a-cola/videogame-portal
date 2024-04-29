@@ -1,6 +1,6 @@
 import { forwardRef, useContext, useEffect, useRef, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom"
-import { Game, UserVotes, addGameToUser, deleteGameFromUser, getGameById, getGameFromUser } from "./firebaseServices";
+import { Game, UserGame, UserVotes, addGameToUser, addGameVote, deleteGameFromUser, getGameById, getGameFromUser } from "./firebaseServices";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { AppleIcon, PlaystationIcon, SwitchIcon, WindowsIcon, XboxIcon } from "./Icons";
@@ -37,7 +37,9 @@ export function GamePage () {
         if(userCtx!.currentUser == null)
             navigate("/login");
         else {
-            addGameToUser(userCtx!.currentUser.uid, id, {} as UserVotes);
+            let userGame = game as UserGame;
+
+            addGameToUser(userCtx!.currentUser.uid, id, userGame);
             setUserHasGame(true);
         }
     }
@@ -47,8 +49,8 @@ export function GamePage () {
         setUserHasGame(false);
     }
 
-    const addVote = (game:UserVotes) => {
-        addGameToUser(userCtx!.currentUser!.uid, id, game);
+    const addVote = (votes:UserVotes) => {
+        addGameVote(userCtx!.currentUser!.uid, id, votes);
         setVoteVisibility("none");
     }
 

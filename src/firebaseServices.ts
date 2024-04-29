@@ -19,6 +19,14 @@ export interface Game extends GameData {
     id: string;
 }
 
+export interface UserGame {
+    title: string;
+    year: number;
+    genres: string[];
+    platforms: string[];
+    imgUrl: string;
+}
+
 export interface UserVotes {
     plot: number;
     graphics: number;
@@ -61,9 +69,14 @@ export const getGameById = async (id:string) => {
     return game;
 }
 
-export const addGameToUser = async (uid:string, gameId:string, game:UserVotes) => {
+export const addGameToUser = async (uid:string, gameId:string, gameData:UserGame) => {
     const gameDocRef = doc(db, "users", uid, "mygames", gameId);
-    await setDoc(gameDocRef, game);
+    await setDoc(gameDocRef, gameData);
+}
+
+export const addGameVote = async (uid:string, gameId:string, gameVotes:UserVotes) => {
+    const gameDocRef = doc(db, "users", uid, "mygames", gameId);
+    await setDoc(gameDocRef, gameVotes);
 }
 
 export const getGameFromUser = async (uid:string, gameId:string) => {
