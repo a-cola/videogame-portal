@@ -63,7 +63,7 @@ export function Header() {
                     ref={searchTextRef}
                     onChange={()=>setSearchText(searchTextRef.current!.value)}
                     onFocus={()=>setSearchActive(true)}
-                    onBlur={()=>setSearchActive(false)}
+                    onBlur={()=>setTimeout(()=>setSearchActive(false), 150)}
                 />
                 <SearchIcon />
             </div>
@@ -122,12 +122,14 @@ function MenuDropdown({setMenuOpen}:{setMenuOpen:React.Dispatch<React.SetStateAc
     </>
 }
 
-function SearchDropdown ({results}:{results:Game[]}) {   
+function SearchDropdown ({results}:{results:Game[]}) {  
+    const navigate = useNavigate();
+    
     return <>
         <div className="search-dropdown">
             <div className="search-results">
                 {results.map((g)=>
-                    <div key={g.id} className="search-result">
+                    <div key={g.id} className="search-result" onClick={()=>navigate(`/games/${g.id}`)}>
                         <img className="search-result-img" src={g.imgUrl}/>
                         <span className="search-result-title">{g.title}</span>
                     </div>
