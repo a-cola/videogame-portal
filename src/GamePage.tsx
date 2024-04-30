@@ -24,7 +24,7 @@ export function GamePage () {
         getGameById(id).then(g => {
             setGame(g);
         })
-    }, [])
+    }, [id])
 
     useEffect(() => {
         console.log("pippo")
