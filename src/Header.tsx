@@ -51,8 +51,11 @@ export function Header() {
                     onChange={()=>setSearchText(searchTextRef.current!.value)}
                     onFocus={()=>setSearchActive(true)}
                     onBlur={()=>setTimeout(()=>setSearchActive(false), 150)}
+                    onKeyUp={(e)=>(searchText.length>0&&e.key=="Enter")?navigate(`/search/${searchText}`):{}}
                 />
-                <SearchIcon />
+                <button className="search-button" onClick={()=>searchText.length>0?navigate(`/search/${searchText}`):{}}>
+                    <SearchIcon />
+                </button>
             </div>
             <button className="mygames-button" type="button" onClick={()=>{userCtx?.currentUser==null?navigate("/login"):navigate("/mygames")}}>
                 <GamepadIcon />

@@ -32,7 +32,8 @@ const router = createBrowserRouter(
     { path:'/login', element:<LoginPage />, errorElement: <span>Errore Login</span>},
     { path:'/genres/:label', element:<OverviewPage />, loader:listLoaderLabel, errorElement: <span>Errore Overview</span>},
     { path:'/games/:id', element:<GamePage />, loader: listLoaderId, errorElement: <span>Errore Pagina Game</span>},
-    { path:'/mygames', element:<MyGamesPage />, errorElement: <span>Errore MyGames</span>}
+    { path:'/mygames', element:<MyGamesPage />, errorElement: <span>Errore MyGames</span>},
+    { path:'/search/:label', element:<OverviewPage />, loader:listLoaderLabel, errorElement: <span>Errore Overview</span>}
   ]
 )
 

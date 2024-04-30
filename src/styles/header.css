@@ -63,6 +63,22 @@
     outline: none;
     color: black
 }
+.search-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    padding: 4px;
+    border: none;
+    background-color: transparent;
+    border-radius: 10px;
+    transition: 300ms;
+}
+.search-button:hover {
+    background-color: rgb(190, 190, 190);
+
+}
 .mygames-button {
     display: flex;
     align-items: center;
