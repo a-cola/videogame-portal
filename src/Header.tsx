@@ -18,21 +18,8 @@ export function Header() {
 
     const searchTextRef = useRef<HTMLInputElement>(null);
 
-    const searchGames = () => {
-        let foundedGames:Game[] = [];
-        for(let g of gameCtx.gameList) {
-            if(searchTextRef.current?.value == null || searchTextRef.current?.value.length == 0)
-                break
-            if(g.title.toLowerCase().includes(searchTextRef.current?.value.toLowerCase()))
-                foundedGames.push(g);
-            if(foundedGames.length >= 5)
-                break;
-        }
-        return foundedGames;
-    }
-
     useEffect(() => {
-        let res = searchGames();
+        let res = gameCtx.searchGames(searchText, 5);
         if (res.length > 0) {
             setSearchActive(true);
         }

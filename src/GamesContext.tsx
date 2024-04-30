@@ -7,6 +7,7 @@ type GamesContextType = {
     topTen: Game[];
     recentlyAdded: Game[];
     updateFourGames: () => void;
+    searchGames: (searchText:string, limit:number) => Game[]
 }
 
 export const GamesContext = createContext<GamesContextType>({
@@ -15,6 +16,7 @@ export const GamesContext = createContext<GamesContextType>({
     topTen:[],
     recentlyAdded:[],
     updateFourGames: ()=>{},
+    searchGames: ()=>({} as Game[]),
 });
 
 export const GamesProvider = ({children}:{children:any}) => {
@@ -22,7 +24,6 @@ export const GamesProvider = ({children}:{children:any}) => {
     const [fourGames, setFourGames] = useState<Game[]>([]);
     const [topTen, setTopTen] = useState<Game[]>([]);
     const [recentlyAdded, setRecentlyAdded] = useState<Game[]>([]);
-
 
     useEffect(() => {
         getGameList().then(gl => {
@@ -46,8 +47,21 @@ export const GamesProvider = ({children}:{children:any}) => {
         });
     }
 
+    const searchGames = (searchText:string, limit:number) => {
+        let foundedGames:Game[] = [];
+        for(let g of gameList) {
+            if(searchText.length == 0)
+                break
+            if(g.title.toLowerCase().includes(searchText.toLowerCase()))
+                foundedGames.push(g);
+            if(foundedGames.length >= limit)
+                break;
+        }
+        return foundedGames;
+    }
+
     return <>
-        <GamesContext.Provider value={{gameList, fourGames, topTen, recentlyAdded, updateFourGames}}>
+        <GamesContext.Provider value={{gameList, fourGames, topTen, recentlyAdded, updateFourGames, searchGames}}>
             {children}
         </GamesContext.Provider>
     </>
