@@ -1,9 +1,10 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { GoogleIcon } from "./Icons";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth } from "./main";
 import { GoogleAuthProvider } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "./UserContext";
 
 export function LoginPage () {
     const emailRef = useRef<HTMLInputElement>(null);
@@ -14,6 +15,11 @@ export function LoginPage () {
     const [googleError, setGoogleError] = useState(false);
 
     const navigate = useNavigate();
+
+    const userCtx = useContext(UserContext);
+
+    if(userCtx!.currentUser !== null)
+        navigate('/');
 
     const loginWithGoogle = () => {
         const provider = new GoogleAuthProvider();

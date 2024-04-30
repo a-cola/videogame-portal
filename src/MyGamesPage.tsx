@@ -4,6 +4,7 @@ import { UserContext } from "./UserContext";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { GameSlot } from "./GameSlot";
+import { useNavigate } from "react-router-dom";
 
 export function MyGamesPage () {
     const [gameList, setGameList] = useState<Game[]|null>(null)
@@ -11,6 +12,10 @@ export function MyGamesPage () {
 
     const [bestScore, setBestScore] = useState<(string | number)[]>([]);
     const [mostPlayedGenre, setMostPlayedGenre] = useState<string>("");
+
+    const navigate = useNavigate();
+
+    if(userCtx?.currentUser == null) navigate('/');
 
     useEffect(()=>{
         if(userCtx!.currentUser !== null)
