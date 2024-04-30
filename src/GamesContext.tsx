@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { Game, getGameList, getRecentlyAdded, getTopTen } from "./firebaseServices";
 
 type GamesContextType = {
+    loading: boolean;
     gameList: Game[];
     fourGames: Game[];
     topTen: Game[];
@@ -11,6 +12,7 @@ type GamesContextType = {
 }
 
 export const GamesContext = createContext<GamesContextType>({
+    loading:true,
     gameList:[],
     fourGames:[],
     topTen:[],
@@ -20,6 +22,7 @@ export const GamesContext = createContext<GamesContextType>({
 });
 
 export const GamesProvider = ({children}:{children:any}) => {
+    const [loading, setLoading] = useState<boolean>(true);
     const [gameList, setGameList] = useState<Game[]>([]);
     const [fourGames, setFourGames] = useState<Game[]>([]);
     const [topTen, setTopTen] = useState<Game[]>([]);
@@ -31,6 +34,7 @@ export const GamesProvider = ({children}:{children:any}) => {
             let fourGamesInit = []
             for(let i=0; i<4; i++) {
                 fourGamesInit.push(gl[Math.floor(Math.random() * gl.length)]);
+            setLoading(false);
         }
         getTopTen().then(tt => setTopTen(tt));
         getRecentlyAdded().then(ra => setRecentlyAdded(ra));
@@ -61,7 +65,7 @@ export const GamesProvider = ({children}:{children:any}) => {
     }
 
     return <>
-        <GamesContext.Provider value={{gameList, fourGames, topTen, recentlyAdded, updateFourGames, searchGames}}>
+        <GamesContext.Provider value={{loading, gameList, fourGames, topTen, recentlyAdded, updateFourGames, searchGames}}>
             {children}
         </GamesContext.Provider>
     </>

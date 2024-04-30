@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 export function HomePage () {
     const gameCtx = useContext(GamesContext);
 
-    if(gameCtx.gameList.length === 0) return;
+    if(gameCtx.loading) return;
 
     return <>
         <Header />

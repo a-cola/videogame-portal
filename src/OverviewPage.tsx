@@ -19,24 +19,24 @@ export function OverviewPage () {
             if(label==="all") {
                 getGameList().then(gl=>{
                     setGameList(gl);
-                    setTitle("All Games")
+                    setTitle("All Games");
                 });
             }
             else
                 getGameList(label).then(gl=>{
                     setGameList(gl);
                     setTitle(label);
-                }
-                );
+                });
         }
         else if(window.location.href.includes("/search/")) {
             setGameList(gameCtx.searchGames(label, Infinity));
             setTitle(`Search results: ${label}`);
         }
-    }, [label])
+    }, [label, gameCtx.loading])
 
+    if(gameCtx.loading) return <></>
 
-    if(gameList === null || gameList.length === 0) return <></>
+    if(gameList === null || gameList.length === 0) return
 
     return <>
         <Header />
