@@ -106,3 +106,8 @@
 .google-button>svg {
     height: 30px;
 }
+.signin-error {
+    margin-top: 10px;
+    color: red;
+    font-size: 18px;
+}

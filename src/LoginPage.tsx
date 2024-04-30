@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { GoogleIcon } from "./Icons";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth } from "./main";
@@ -9,6 +9,10 @@ export function LoginPage () {
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
 
+    const [loginError, setLoginError] = useState(false);
+    const [registerError, setRegisterError] = useState(false);
+    const [googleError, setGoogleError] = useState(false);
+
     const navigate = useNavigate();
 
     const loginWithGoogle = () => {
@@ -16,21 +20,36 @@ export function LoginPage () {
         
         signInWithPopup(auth, provider)
             .then(() => navigate(-1))
-            .catch((error) => console.error(error))
+            .catch((error) => {
+                console.error(error);
+                setGoogleError(true);
+                setLoginError(false);
+                setRegisterError(false);
+            })
     }
 
     const login = () => {
         if(emailRef.current!.value !== null && passwordRef.current!.value !== null)
             signInWithEmailAndPassword(auth, emailRef.current!.value, passwordRef.current!.value)
                 .then(()=>navigate(-1))
-                .catch((error) => console.error(error));
+                .catch((error) => {
+                    console.error(error);
+                    setLoginError(true);
+                    setRegisterError(false);
+                    setGoogleError(false);
+                })
     }
 
     const register = () => {
         if(emailRef.current!.value !== null && passwordRef.current!.value !== null)
             createUserWithEmailAndPassword(auth, emailRef.current!.value, passwordRef.current!.value)
                 .then(()=>navigate(-1))
-                .catch((error) => console.error(error));
+                .catch((error) => {
+                    console.error(error);
+                    setRegisterError(true);
+                    setLoginError(false);
+                    setGoogleError(false);
+                })
     }
 
     return <>
@@ -57,6 +76,9 @@ export function LoginPage () {
                         <span>Sign in with Google</span>
                         <GoogleIcon />
                     </button>
+                    {loginError?<span className="signin-error">Wrong email or password</span>:<></>}
+                    {registerError?<span className="signin-error">Invalid email</span>:<></>}
+                    {googleError?<span className="signin-error">Error signing in with Google</span>:<></>}
                 </div>
             </div>
         </div>
