@@ -30,7 +30,7 @@ export function OverviewPage () {
         }
         else if(window.location.href.includes("/search/")) {
             setGameList(gameCtx.searchGames(label, Infinity));
-            setTitle(`Search results: ${label}`);
+            setTitle(`Search results for "${label}":`);
         }
     }, [label, gameCtx.loading])
 
