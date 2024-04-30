@@ -1,14 +1,46 @@
 import { useNavigate } from "react-router-dom";
 import { GamepadIcon, MenuIcon, SearchIcon } from "./Icons";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "./UserContext";
+import { GamesContext } from "./GamesContext";
+import { Game } from "./firebaseServices";
 
 export function Header() {
     const navigate = useNavigate();
 
     const userCtx = useContext(UserContext);
+    const gameCtx = useContext(GamesContext);
 
-    const [open, setOpen] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
+    const [searchActive, setSearchActive] = useState(false);
+    const [searchText, setSearchText] = useState("");
+    const [results, setResults] = useState<Game[]>([]);
+
+    const searchTextRef = useRef<HTMLInputElement>(null);
+
+    const searchGames = () => {
+        let foundedGames:Game[] = [];
+        for(let g of gameCtx.gameList) {
+            if(searchTextRef.current?.value == null || searchTextRef.current?.value.length == 0)
+                break
+            if(g.title.toLowerCase().includes(searchTextRef.current?.value.toLowerCase()))
+                foundedGames.push(g);
+            if(foundedGames.length >= 5)
+                break;
+        }
+        return foundedGames;
+    }
+
+    useEffect(() => {
+        let res = searchGames();
+        if (res.length > 0) {
+            setSearchActive(true);
+        }
+        else {
+            setSearchActive(false);
+        }
+        setResults(res);
+    }, [searchText])
 
     return <>
         <nav className="header">
@@ -19,7 +51,7 @@ export function Header() {
             >
                 <img className="vgp-logo" src="../VGP_Logo.png" alt="vgp logo"/>
             </button>
-            <button className="menu" type="button" onClick={()=>setOpen(!open)} style={open?{backgroundColor:"#00a2ff"}:{}}>
+            <button className="menu" type="button" onClick={()=>setMenuOpen(!menuOpen)} style={menuOpen?{backgroundColor:"#00a2ff"}:{}}>
                 <MenuIcon />
                 <span>Menu</span>
             </button>
@@ -28,6 +60,10 @@ export function Header() {
                     className="search-bar-input"
                     type="text"
                     placeholder="Search VGP"
+                    ref={searchTextRef}
+                    onChange={()=>setSearchText(searchTextRef.current!.value)}
+                    onFocus={()=>setSearchActive(true)}
+                    onBlur={()=>setSearchActive(false)}
                 />
                 <SearchIcon />
             </div>
@@ -45,11 +81,12 @@ export function Header() {
             }
             
         </nav>
-        {open?<MenuDropdown setOpen={setOpen}/>:<></>}
+        {menuOpen?<MenuDropdown setMenuOpen={setMenuOpen}/>:<></>}
+        {searchActive?<SearchDropdown results={results}/>:<></>}
     </>
 }
 
-function MenuDropdown({setOpen}:{setOpen:React.Dispatch<React.SetStateAction<boolean>>}) {
+function MenuDropdown({setMenuOpen}:{setMenuOpen:React.Dispatch<React.SetStateAction<boolean>>}) {
     const GENRES = [
         'Action',        'Adventure',
         'Battle Royale', 'Card',
@@ -76,11 +113,26 @@ function MenuDropdown({setOpen}:{setOpen:React.Dispatch<React.SetStateAction<boo
                 {GENRES.map((g)=><button
                     key={g}
                     className="dropdown-genre"
-                    onClick={()=>{navigate(`/genres/${g}`); setOpen(false)}}>{g}</button>)}
+                    onClick={()=>{navigate(`/genres/${g}`); setMenuOpen(false)}}>{g}</button>)}
             </div>
             <button 
                 className="dropdown-showall"
-                onClick={()=>{navigate(`/genres/all`); setOpen(false)}}>Show All Games</button>
+                onClick={()=>{navigate(`/genres/all`); setMenuOpen(false)}}>Show All Games</button>
         </div>
     </>
 }
+
+function SearchDropdown ({results}:{results:Game[]}) {   
+    return <>
+        <div className="search-dropdown">
+            <div className="search-results">
+                {results.map((g)=>
+                    <div key={g.id} className="search-result">
+                        <img className="search-result-img" src={g.imgUrl}/>
+                        <span className="search-result-title">{g.title}</span>
+                    </div>
+                )}
+            </div>
+        </div>
+    </>
+};

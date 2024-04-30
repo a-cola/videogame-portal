@@ -61,6 +61,7 @@
     border: none;
     margin-right: 5px;
     outline: none;
+    color: black
 }
 .mygames-button {
     display: flex;
@@ -161,4 +162,45 @@
 }
 .dropdown-showall:hover {
     scale: 1.1;
+}
+
+.search-dropdown {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    position: absolute;
+    z-index: 2;
+}
+.search-results {
+    display: flex;
+    align-items: start;
+    width: 350px;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+    animation: dropdown-open 300ms ease-in-out;
+}
+.search-result {
+    display: flex;
+    align-items: center;
+    height: 100px;
+    width: 330px;
+    padding: 10px;
+    transition: 300ms;
+}
+.search-result:hover {
+    cursor: pointer;
+    background-color: #ff9a00;
+    border-radius: 10px;
+}
+.search-result:hover .search-result-title {
+    text-decoration: underline;
+}
+.search-result-img {
+    height: 100px;
+    border-radius: 10px;
+}
+.search-result-title {
+    color: black;
+    margin-left: 10px;
 }
