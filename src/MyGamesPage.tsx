@@ -17,12 +17,21 @@ export function MyGamesPage () {
 
     const navigate = useNavigate();
 
-    if(userCtx?.currentUser == null) navigate('/');
-
     useEffect(()=>{
         if(userCtx!.currentUser !== null)
             getUserGames(userCtx!.currentUser.uid).then(gl=>setGameList(gl));
-    }, [userCtx?.currentUser?.uid])
+    }, [userCtx?.currentUser?.uid]);
+
+    useEffect(()=>{
+        if(gameList !== null && gameList.length==0)
+            sendNotification(
+            "Add games to MyGames",
+            "You haven't added any games to your library yet, click on + Add to MyGames in any game page to do that")
+        if(gameList !== null && gameList.length>0) {
+            setBestScore(findBestScore());
+            setMostPlayedGenre(findMostPlayedGenre());
+        }
+    }, [gameList]);
 
     const findBestScore = () => {
         let title = "";
@@ -55,17 +64,8 @@ export function MyGamesPage () {
         return genre;
     }
 
-    useEffect(()=>{
-        if(gameList !== null && gameList.length==0)
-            sendNotification(
-            "Add games to MyGames",
-            "You haven't added any games to your library yet, click on + Add to MyGames in any game page to do that")
-        if(gameList !== null && gameList.length>0) {
-            setBestScore(findBestScore());
-            setMostPlayedGenre(findMostPlayedGenre());
-        }
-    }, [gameList])
-    
+    if(userCtx?.currentUser == null) navigate('/');
+
     if(gameList === null) return <></>
     
     return <>
