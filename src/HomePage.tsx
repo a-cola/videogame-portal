@@ -6,9 +6,17 @@ import { Game } from "./firebaseServices";
 import { ArrowLeft, ArrowRight } from "./Icons";
 import { useNavigate } from "react-router-dom";
 import { NotifyRequest } from "./NotifyRequest";
+import { UserContext } from "./UserContext";
+import { sendNotification } from "./notificationServices";
 
 export function HomePage () {
     const gameCtx = useContext(GamesContext);
+    const userCtx = useContext(UserContext);
+
+    useEffect(()=>{
+        if(userCtx?.currentUser == null)
+            sendNotification("SignIn", "SignIn to unlock all VGP functionalities");
+    }, [userCtx?.currentUser])
 
     if(gameCtx.loading) return;
 

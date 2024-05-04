@@ -1,19 +1,8 @@
 import { useState } from "react";
+import { notifyPermissionCheck, sendNotification } from "./notificationServices";
 
 export function NotifyRequest() {
     const [permission, setPermission] = useState(notifyPermissionCheck());
-    
-    function notifyPermissionCheck() {
-        if (!("Notification" in window)) {
-            alert("This browser does not support desktop notification");
-        }
-        else if (Notification.permission === "granted") {
-            return true;
-        }
-        else if (Notification.permission === "denied") {
-            return false;
-        }
-    }
 
     return <>
         <div className="notify-request" style={{display:permission?"none":"flex"}}>
@@ -23,7 +12,7 @@ export function NotifyRequest() {
                     Notification.requestPermission().then((permission) => {
                         if(permission === "granted") {
                             setPermission(true);
-                            new Notification("Notifiche abilitate");
+                            sendNotification("Notification Enabled", "VGP can now send you notification!");
                         }
                         else
                             setPermission(false);

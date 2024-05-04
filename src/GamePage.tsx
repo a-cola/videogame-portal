@@ -6,6 +6,7 @@ import { Footer } from "./Footer";
 import { AppleIcon, PlaystationIcon, SwitchIcon, WindowsIcon, XboxIcon } from "./Icons";
 import { UserContext } from "./UserContext";
 import { NotifyRequest } from "./NotifyRequest";
+import { sendNotification } from "./notificationServices";
 
 export function GamePage () {
     const id = useLoaderData() as string;
@@ -28,12 +29,13 @@ export function GamePage () {
     }, [id])
 
     useEffect(() => {
-        console.log("pippo")
         if(userCtx!.currentUser !== null)
             getGameFromUser(userCtx!.currentUser.uid, id).then(g => {
                 if(g!==null) {
                     setUserHasGame(true);
                     setUserGame(g);
+                    if(g.vote == 0)
+                        sendNotification("Vote your games", "Click on Vote button to sumbit your scores");
                 }
             })
         else {

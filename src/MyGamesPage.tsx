@@ -6,6 +6,7 @@ import { Footer } from "./Footer";
 import { GameSlot } from "./GameSlot";
 import { useNavigate } from "react-router-dom";
 import { NotifyRequest } from "./NotifyRequest";
+import { sendNotification } from "./notificationServices";
 
 export function MyGamesPage () {
     const [gameList, setGameList] = useState<Game[]|null>(null)
@@ -20,7 +21,7 @@ export function MyGamesPage () {
 
     useEffect(()=>{
         if(userCtx!.currentUser !== null)
-            getUserGames(userCtx!.currentUser.uid).then(gl=>setGameList(gl));       
+            getUserGames(userCtx!.currentUser.uid).then(gl=>setGameList(gl));
     }, [userCtx?.currentUser?.uid])
 
     const findBestScore = () => {
@@ -55,6 +56,10 @@ export function MyGamesPage () {
     }
 
     useEffect(()=>{
+        if(gameList !== null && gameList.length==0)
+            sendNotification(
+            "Add games to MyGames",
+            "You haven't added any games to your library yet, click on + Add to MyGames in any game page to do that")
         if(gameList !== null && gameList.length>0) {
             setBestScore(findBestScore());
             setMostPlayedGenre(findMostPlayedGenre());
