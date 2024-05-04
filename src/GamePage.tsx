@@ -5,6 +5,7 @@ import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { AppleIcon, PlaystationIcon, SwitchIcon, WindowsIcon, XboxIcon } from "./Icons";
 import { UserContext } from "./UserContext";
+import { NotifyRequest } from "./NotifyRequest";
 
 export function GamePage () {
     const id = useLoaderData() as string;
@@ -92,6 +93,7 @@ export function GamePage () {
     if(game===null) return <></>
 
     return <>
+        <NotifyRequest />
         <VoteModal voteVisibility={voteVisibility} setVoteVisibility={setVoteVisibility} addVote={addVote}/>
         <Header />
         <section className="game-page-container">

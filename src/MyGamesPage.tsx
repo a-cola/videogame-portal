@@ -5,6 +5,7 @@ import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { GameSlot } from "./GameSlot";
 import { useNavigate } from "react-router-dom";
+import { NotifyRequest } from "./NotifyRequest";
 
 export function MyGamesPage () {
     const [gameList, setGameList] = useState<Game[]|null>(null)
@@ -63,6 +64,7 @@ export function MyGamesPage () {
     if(gameList === null) return <></>
     
     return <>
+        <NotifyRequest />
         <Header />
         <section className="my-games">
             <span className="my-games-title">My Games</span>

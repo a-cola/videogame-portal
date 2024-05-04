@@ -5,6 +5,7 @@ import { GamesContext } from "./GamesContext";
 import { Game } from "./firebaseServices";
 import { ArrowLeft, ArrowRight } from "./Icons";
 import { useNavigate } from "react-router-dom";
+import { NotifyRequest } from "./NotifyRequest";
 
 export function HomePage () {
     const gameCtx = useContext(GamesContext);
@@ -12,6 +13,7 @@ export function HomePage () {
     if(gameCtx.loading) return;
 
     return <>
+        <NotifyRequest />
         <Header />
         <section className="home-page-container">
             <div className="main-viewer">
