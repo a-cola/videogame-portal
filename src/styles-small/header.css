@@ -1,0 +1,222 @@
+.header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(38, 38, 38);
+    height: 50px;
+    padding: 5px 10px 5px 10px;
+    z-index: 10;
+}
+.home-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
+    height: 50px;
+}
+.vgp-logo {
+    display: flex;
+    max-height: 40px;
+}
+.menu {
+    display: flex;
+    align-items: center;
+    font-size: medium;
+    background-color: transparent;
+    color: white;
+    border-radius: 8px;
+    padding: 5px;
+    border: none;
+    height: 32px;
+    transition: 200ms;
+    margin-right: 2px;
+}
+.menu:hover, .mygames-button:hover {
+    background-color: #005789;
+}
+.menu:active, .mygames-button:active {
+    background-color: #00a2ff;
+}
+.menu>svg {
+    filter: invert();
+    height: 24px;
+}
+.menu>span {
+    display: none;
+}
+.search-bar {
+    display: flex;
+    background-color: white;
+    border-radius: 5px;
+    padding: 3px;
+    width: 40%;
+}
+.search-bar>svg {
+    height: 24px;
+}
+.search-bar-input {
+    width: 100%;
+    height: 24px;
+    border: none;
+    margin-right: 5px;
+    outline: none;
+    color: black
+}
+.search-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    padding: 4px;
+    border: none;
+    background-color: transparent;
+    border-radius: 10px;
+    transition: 300ms;
+}
+.search-button:hover {
+    background-color: rgb(190, 190, 190);
+
+}
+.mygames-button {
+    display: flex;
+    align-items: center;
+    background-color:transparent;
+    color: white;
+    font-size: medium;
+    border-radius: 8px;
+    border: none;
+    height: 32px;
+    transition: 200ms;
+    white-space: nowrap;
+}
+.mygames-button>svg {
+    filter: invert();
+    height: 24px;
+}
+.mygames-button>span {
+    display: none;
+}
+.login-button {
+    display: flex;
+    align-items: center;
+    background-color:transparent;
+    color: white;
+    font-size: medium;
+    border-radius: 8px;
+    padding: 5px;
+    border: none;
+    height: 32px;
+    transition: 200ms;
+    white-space: nowrap;
+}
+.login-button:hover {
+    background-color: #8d5500;
+}
+.login-button:active {
+    background-color: #ff9a00;
+}
+
+@keyframes dropdown-open {
+    0% {
+        opacity: 0;
+        scale: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.dropdown {
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    top: 65px;
+    left: 5px;
+    background-color: #00a2ff;
+    padding: 10px;
+    width: 350px;
+    border-radius: 10px;
+    animation: dropdown-open ease-in-out 300ms forwards;
+    z-index: 1;
+}
+.dropdown-genres-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: start;
+    border-bottom: solid 2px #005789;
+    padding-bottom: 5px;
+}
+.dropdown-genre {
+    background-color: white;
+    color: black;
+    border: none;
+    height: 30px;
+    font-size: medium;
+    margin: 2px;
+    border-radius: 10px;
+    padding: 5px;
+    transition: 300ms;
+}
+.dropdown-genre:hover {
+    background-color: rgb(220, 220, 220);
+    scale: 1.1;
+}
+.dropdown-genre:active {
+    background-color: rgb(200, 200, 200);
+}
+.dropdown-showall {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
+    font-size: large;
+    padding-top: 5px;
+    transition: 300ms;
+}
+.dropdown-showall:hover {
+    scale: 1.1;
+}
+
+.search-dropdown {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    position: absolute;
+    z-index: 2;
+}
+.search-results {
+    display: flex;
+    align-items: start;
+    width: 350px;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+    animation: dropdown-open 300ms ease-in-out;
+}
+.search-result {
+    display: flex;
+    align-items: center;
+    height: 100px;
+    width: 330px;
+    padding: 10px;
+    transition: 300ms;
+}
+.search-result:hover {
+    cursor: pointer;
+    background-color: #ff9a00;
+    border-radius: 10px;
+}
+.search-result:hover .search-result-title {
+    text-decoration: underline;
+}
+.search-result-img {
+    height: 100px;
+    border-radius: 10px;
+}
+.search-result-title {
+    color: black;
+    margin-left: 10px;
+}

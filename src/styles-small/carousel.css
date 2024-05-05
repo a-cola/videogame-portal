@@ -1,0 +1,73 @@
+.carousel-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.carousel-viewer {
+    width: 380px;
+    position: relative;
+}
+.carousel-title {
+    margin-left: 20px;
+    font-size: x-large;
+    font-weight: bold;
+}
+.hl {
+    height: 0px;
+    width: 100%;
+    border: solid 3px #00a2ff;
+    margin-top: 5px;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+.carousel {
+    display: flex;
+    padding: 22px;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+.carousel:hover .carousel-game {
+    transform: translateX(-10%);
+}
+.carousel-game {
+    margin: 2px;
+    width: 150px;
+    transition: transform 300ms;
+    z-index: 1;
+}
+.carousel-game:hover {
+    transform: scale(1.2) !important;
+    cursor: pointer;
+}
+.carousel-game:hover ~ .carousel-game {
+    transform: translateX(10%);
+}
+.carousel-arrow-left, .carousel-arrow-right {
+    background-color: black;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    margin-top: 98px;
+    height: 100px;
+    width: 30px;
+    padding: 10px;
+    opacity: 60%;
+    transition: 300ms;
+    z-index: 2;
+    border: none;
+    padding: 5px;
+    justify-content: center;
+}
+.carousel-arrow-left {
+    margin-left: 2px;
+}
+.carousel-arrow-right {
+    right: 30px;
+}
+.carousel-arrow-left:hover, .carousel-arrow-right:hover {
+    opacity: 90%;
+}
+.carousel-arrow-left>svg, .carousel-arrow-right>svg {
+    filter: invert();
+    height: 50px;
+}
