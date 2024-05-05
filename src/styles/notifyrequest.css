@@ -1,5 +1,5 @@
 .notify-request {
-    position: absolute;
+    position: fixed;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -9,6 +9,7 @@
     height: 100px;
     width: 300px;
     border-radius: 10px;
+    z-index: 5;
 }
 .notify-request>span {
     color: black;
