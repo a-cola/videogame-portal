@@ -1,6 +1,6 @@
 import { useContext, useRef, useState } from "react";
 import { GoogleIcon } from "./Icons";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect } from "firebase/auth";
 import { auth } from "./main";
 import { GoogleAuthProvider } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
@@ -23,15 +23,43 @@ export function LoginPage () {
 
     const loginWithGoogle = () => {
         const provider = new GoogleAuthProvider();
-        
-        signInWithPopup(auth, provider)
-            .then(() => navigate(-1))
-            .catch((error) => {
-                console.error(error);
-                setGoogleError(true);
-                setLoginError(false);
-                setRegisterError(false);
+
+        const isMobile = () => {
+            const devices = [
+                /Android/i,
+                /webOS/i,
+                /iPhone/i,
+                /iPad/i,
+                /iPod/i,
+                /BlackBerry/i,
+                /Windows Phone/i
+            ];
+
+            return devices.some((device)=>{
+                return navigator.userAgent.match(device);
             })
+        }
+
+        if(isMobile()) {
+            signInWithRedirect(auth, provider)
+                .then(() => navigate(-1))
+                .catch((error) => {
+                    console.error(error);
+                    setGoogleError(true);
+                    setLoginError(false);
+                    setRegisterError(false);
+                })
+        }
+        else {
+            signInWithPopup(auth, provider)
+                .then(() => navigate(-1))
+                .catch((error) => {
+                    console.error(error);
+                    setGoogleError(true);
+                    setLoginError(false);
+                    setRegisterError(false);
+                })
+        }
     }
 
     const login = () => {
