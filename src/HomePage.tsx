@@ -14,9 +14,9 @@ export function HomePage () {
     const userCtx = useContext(UserContext);
 
     useEffect(()=>{
-        if(userCtx?.currentUser == null)
+        if(userCtx?.currentUser == null && userCtx?.loading==false)
             sendNotification("SignIn", "SignIn to unlock all VGP functionalities");
-    }, [userCtx?.currentUser])
+    }, [userCtx?.loading])
 
     if(gameCtx.loading) return;
 
