@@ -1,7 +1,7 @@
 import { useContext, useRef, useState } from "react";
 import { GoogleIcon } from "./Icons";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect } from "firebase/auth";
-import { auth } from "./main";
+import { auth, isOnline } from "./main";
 import { GoogleAuthProvider } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "./UserContext";
@@ -22,6 +22,8 @@ export function LoginPage () {
         navigate('/');
 
     const loginWithGoogle = () => {
+        if(!isOnline()) return;
+
         const provider = new GoogleAuthProvider();
 
         const isMobile = () => {
@@ -63,6 +65,7 @@ export function LoginPage () {
     }
 
     const login = () => {
+        if(!isOnline()) return;
         if(emailRef.current!.value !== null && passwordRef.current!.value !== null)
             signInWithEmailAndPassword(auth, emailRef.current!.value, passwordRef.current!.value)
                 .then(()=>navigate(-1))
@@ -75,6 +78,7 @@ export function LoginPage () {
     }
 
     const register = () => {
+        if(!isOnline()) return;
         if(emailRef.current!.value !== null && passwordRef.current!.value !== null)
             createUserWithEmailAndPassword(auth, emailRef.current!.value, passwordRef.current!.value)
                 .then(()=>navigate(-1))
@@ -113,6 +117,7 @@ export function LoginPage () {
                     {loginError?<span className="signin-error">Wrong email or password</span>:<></>}
                     {registerError?<span className="signin-error">Invalid email</span>:<></>}
                     {googleError?<span className="signin-error">Error signing in with Google</span>:<></>}
+                    {!isOnline()?<span className="signin-error">You must be online to sign in</span>:<></>}
                 </div>
             </div>
         </div>
