@@ -6,7 +6,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { initializeApp } from "firebase/app";
 import { GamesProvider } from './GamesContext';
 import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { /*getFirestore,*/ disableNetwork, enableNetwork, initializeFirestore, persistentLocalCache } from 'firebase/firestore';
 import { GamePage } from './GamePage';
 import { OverviewPage } from './OverviewPage';
 import { LoginPage } from './LoginPage';
@@ -24,7 +24,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-export const db = getFirestore(app);
+export const db = initializeFirestore(app, {localCache: persistentLocalCache()});
 
 const router = createBrowserRouter(
   [
@@ -44,6 +44,25 @@ function listLoaderId({params}:any) {
 function listLoaderLabel({params}:any) {
   return params.label;
 }
+
+let status = navigator.onLine;
+
+export const isOnline = () => {
+  return status;
+}
+
+window.addEventListener('offline', () => {
+  console.log("offline");
+  disableNetwork(db);
+  status = false;
+});
+
+window.addEventListener('online', () => {
+  console.log("online");
+  enableNetwork(db);
+  status = true;
+  location.reload();
+});
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
