@@ -33,12 +33,13 @@ export const GamesProvider = ({children}:{children:any}) => {
             setGameList(gl);
             let fourGamesInit = []
             for(let i=0; i<4; i++) {
-                fourGamesInit.push(gl[Math.floor(Math.random() * gl.length)]);
+                let randomGame = gl[Math.floor(Math.random() * gl.length)];
+                fourGamesInit.push(randomGame);
+            }
+            getTopTen().then(tt => setTopTen(tt));
+            getRecentlyAdded().then(ra => setRecentlyAdded(ra));
+            setFourGames(fourGamesInit);
             setLoading(false);
-        }
-        getTopTen().then(tt => setTopTen(tt));
-        getRecentlyAdded().then(ra => setRecentlyAdded(ra));
-        setFourGames(fourGamesInit);
         });
     }, [])
 
