@@ -97,7 +97,7 @@ function MenuDropdown({setMenuOpen}:{setMenuOpen:React.Dispatch<React.SetStateAc
     const navigate = useNavigate();
     
     return <>
-        <div className="dropdown">
+        <div className="dropdown" onMouseLeave={()=>setMenuOpen(false)}>
             <span>Genres:</span>
             <div className="dropdown-genres-container">
                 {GENRES.map((g)=><button
