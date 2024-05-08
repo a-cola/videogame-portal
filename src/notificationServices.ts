@@ -12,10 +12,12 @@ export function notifyPermissionCheck() {
 
 export function sendNotification(title:string, body:string) {
     if(notifyPermissionCheck()) {
-        new Notification(title, {
-            lang:"en",
-            body:body,
-            icon:"VGP_Logo_Small.png",
+        navigator.serviceWorker.ready.then((registration) => {
+            registration.showNotification(title, {
+                lang:"en",
+                body:body,
+                icon:"VGP_Logo_Small.png",
+            })
         })
     }
     else {
