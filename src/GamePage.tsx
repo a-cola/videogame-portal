@@ -31,7 +31,7 @@ export function GamePage () {
     useEffect(() => {
         if(userCtx!.currentUser !== null)
             getGameFromUser(userCtx!.currentUser.uid, id).then(g => {
-                if(g!==null) {
+                if(g!==null && (userGame==null || g.id!==userGame.id)) {
                     setUserHasGame(true);
                     setUserGame(g);
                 }
