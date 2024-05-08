@@ -18,7 +18,8 @@
 }
 .vgp-logo {
     display: flex;
-    max-height: 50px;
+    height: 50px;
+    width: 100px;
 }
 .menu {
     display: flex;
