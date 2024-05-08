@@ -53,7 +53,7 @@ export function Header() {
                     onBlur={()=>setTimeout(()=>setSearchActive(false), 150)}
                     onKeyUp={(e)=>(searchText.length>0&&e.key=="Enter")?navigate(`/search/${searchText}`):{}}
                 />
-                <button className="search-button" onClick={()=>searchText.length>0?navigate(`/search/${searchText}`):{}}>
+                <button aria-label="search-button" className="search-button" onClick={()=>searchText.length>0?navigate(`/search/${searchText}`):{}}>
                     <SearchIcon />
                 </button>
             </div>
@@ -120,7 +120,7 @@ function SearchDropdown ({results}:{results:Game[]}) {
             <div className="search-results">
                 {results.map((g)=>
                     <div key={g.id} className="search-result" onClick={()=>navigate(`/games/${g.id}`)}>
-                        <img className="search-result-img" src={g.imgUrl}/>
+                        <img className="search-result-img" src={g.imgUrl} alt={g.title}/>
                         <span className="search-result-title">{g.title}</span>
                     </div>
                 )}

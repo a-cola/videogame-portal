@@ -95,7 +95,7 @@ export function LoginPage () {
             <div className="login-form-container">
                 <button className="to-home-button" onClick={()=>navigate(-1)}>&times;</button>
                 <div className="login-form">
-                    <img src="./VGP_Logo.png" />
+                    <img src="./VGP_Logo.png" alt="VGP Logo"/>
                     <input
                         type="text"
                         placeholder="Insert e-mail"

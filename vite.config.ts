@@ -17,7 +17,7 @@ export default defineConfig({
             src: 'icons/VGP_Logo_512.png',
             sizes: "512x512",
             type: "image/png",
-            purpose: "any"
+            purpose: "any maskable"
           },
           {
             src: 'icons/VGP_Logo_192.png',

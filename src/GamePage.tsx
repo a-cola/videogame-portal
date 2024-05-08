@@ -112,7 +112,7 @@ export function GamePage () {
                 </div>
                 <div className="game-viewer">
                     <div className="game-left">
-                        <img src={game.imgUrl} onError={e=>e.currentTarget.src="/Cover_Not_Loaded.png"}/>
+                        <img src={game.imgUrl} onError={e=>e.currentTarget.src="/Cover_Not_Loaded.png"} alt={game.title}/>
                         <div className="game-genres">
                             {game.genres.map(genre => <button key={genre} className="game-genre" onClick={()=>navigate(`/genres/${genre}`)}>{genre}</button>)}
                         </div>

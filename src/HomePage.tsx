@@ -45,7 +45,7 @@ function GameBig ({game, updateGames}:{game:Game, updateGames:()=>void}) {
     return <>
         <div className="game-big">
             <ProgressBar onProgressComplete={updateGames}/>
-            <img src={game.imgUrl} onError={e=>e.currentTarget.src="/Cover_Not_Loaded.png"} onClick={()=>navigate(`/games/${game.id}`)}/>
+            <img src={game.imgUrl} onError={e=>e.currentTarget.src="/Cover_Not_Loaded.png"} onClick={()=>navigate(`/games/${game.id}`)} alt={game.title}/>
             <div className="game-big-info">
                 <span className="game-big-title" onClick={()=>navigate(`/games/${game.id}`)}>{game.title}</span>
                 <span className="game-big-year">{game.year}</span>
@@ -66,7 +66,7 @@ function GameSmall({game}:{game:Game}) {
     const navigate = useNavigate();
     return <>
         <div className="game-small" onClick={()=>navigate(`/games/${game.id}`)}>
-            <img src={game.imgUrl} onError={e=>e.currentTarget.src="/Cover_Not_Loaded.png"}/>
+            <img src={game.imgUrl} onError={e=>e.currentTarget.src="/Cover_Not_Loaded.png"} alt={game.title}/>
             <div className="game-small-info">
                 <span className="game-small-title">{game.title}</span>
                 <span className="game-small-year">{game.year}</span>
@@ -111,7 +111,7 @@ function GameCarousel({gameList, title}:{gameList:Game[], title:string}) {
                 <div className="hl"></div>
                 <div className="carousel" ref={viewerRef}>
                     {scrollPosition>0
-                    ?<button className="carousel-arrow-left" onClick={()=>handleScroll(-200)}>
+                    ?<button aria-label="arrow-left" className="carousel-arrow-left" onClick={()=>handleScroll(-200)}>
                         <ArrowLeft />
                     </button>
                     :<></>}
@@ -122,10 +122,11 @@ function GameCarousel({gameList, title}:{gameList:Game[], title:string}) {
                             src={g.imgUrl}
                             onError={e=>e.currentTarget.src="/Cover_Not_Loaded.png"}
                             onClick={()=>navigate(`/games/${g.id}`)}
+                            alt={g.title}
                         />
                     })}
                     {scrollPosition<maxScrollLeft
-                    ?<button className="carousel-arrow-right" onClick={()=>handleScroll(200)}>
+                    ?<button aria-label="arrow-right" className="carousel-arrow-right" onClick={()=>handleScroll(200)}>
                         <ArrowRight />
                     </button>
                     :<></>}
