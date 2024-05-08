@@ -6,7 +6,7 @@ export function GameSlot ({game}:{game:Game}) {
 
     return <>
         <div className="game-slot" onClick={()=>navigate(`/games/${game.id}`)}>
-            <img src={game.imgUrl} />
+            <img src={game.imgUrl} onError={e=>e.currentTarget.src="/Cover_Not_Loaded.png"}/>
             <span>{game.title}</span>
         </div>
     </>

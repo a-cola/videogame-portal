@@ -45,7 +45,7 @@ function GameBig ({game, updateGames}:{game:Game, updateGames:()=>void}) {
     return <>
         <div className="game-big">
             <ProgressBar onProgressComplete={updateGames}/>
-            <img src={game.imgUrl} onClick={()=>navigate(`/games/${game.id}`)}/>
+            <img src={game.imgUrl} onError={e=>e.currentTarget.src="/Cover_Not_Loaded.png"} onClick={()=>navigate(`/games/${game.id}`)}/>
             <div className="game-big-info">
                 <span className="game-big-title" onClick={()=>navigate(`/games/${game.id}`)}>{game.title}</span>
                 <span className="game-big-year">{game.year}</span>
@@ -66,7 +66,7 @@ function GameSmall({game}:{game:Game}) {
     const navigate = useNavigate();
     return <>
         <div className="game-small" onClick={()=>navigate(`/games/${game.id}`)}>
-            <img src={game.imgUrl} />
+            <img src={game.imgUrl} onError={e=>e.currentTarget.src="/Cover_Not_Loaded.png"}/>
             <div className="game-small-info">
                 <span className="game-small-title">{game.title}</span>
                 <span className="game-small-year">{game.year}</span>
@@ -120,6 +120,7 @@ function GameCarousel({gameList, title}:{gameList:Game[], title:string}) {
                             key={g.id}
                             className="carousel-game"
                             src={g.imgUrl}
+                            onError={e=>e.currentTarget.src="/Cover_Not_Loaded.png"}
                             onClick={()=>navigate(`/games/${g.id}`)}
                         />
                     })}
