@@ -15,7 +15,7 @@ export function HomePage () {
 
     useEffect(()=>{
         if(userCtx?.currentUser == null && userCtx?.loading==false)
-            sendNotification("SignIn", "SignIn to unlock all VGP functionalities");
+            sendNotification("SignIn", "Sign in to unlock all VGP functionalities.");
     }, [userCtx?.loading])
 
     if(gameCtx.loading) return;

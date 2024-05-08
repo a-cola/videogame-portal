@@ -32,7 +32,7 @@ Let’s break down the different sections of the app:
 - If you are online, you can sign in using email and password or directly with google.
 
 #### Game Page
-- If you are logged in, you can use `+ Add to Mygames` to add the game to your personal library
+- If you are logged in, you can use `+ Add to MyGames` to add the game to your personal library
 - Two buttons will appear:
   - `- Remove from MyGames`: Removes the game from your library.
   - `Vote`: Opens a modal where you can submit your votes (from 1 to 10 with a maximum of one decimal).

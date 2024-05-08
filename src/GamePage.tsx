@@ -44,7 +44,7 @@ export function GamePage () {
 
     useEffect(()=>{
         if(userHasGame==true && userGame?.vote == 0)
-            sendNotification("Vote your games", "Click on Vote button to sumbit your scores");
+            sendNotification("Vote your games", "Click on the 'Vote' button to submit your scores.");
     }, [userHasGame, userGame])
 
     const addToMyGames = () => {

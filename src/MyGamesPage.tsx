@@ -26,7 +26,7 @@ export function MyGamesPage () {
         if(gameList !== null && gameList.length==0)
             sendNotification(
             "Add games to MyGames",
-            "You haven't added any games to your library yet, click on + Add to MyGames in any game page to do that")
+            "You haven't added any games to your library yet. Click on '+ Add to MyGames' on any game page to do so.")
         if(gameList !== null && gameList.length>0) {
             setBestScore(findBestScore());
             setMostPlayedGenre(findMostPlayedGenre());
