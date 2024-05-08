@@ -49,7 +49,7 @@
     margin-left: 10px;
 }
 .game-big-title {
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
 }
 .game-big-title:hover, .game-big-genre:hover {
@@ -58,7 +58,7 @@
 }
 .game-big-year {
     margin-bottom: 10px;
-    font-size: large;
+    font-size: 15px;
 }
 .game-big-genres{
     display: flex;
@@ -99,10 +99,13 @@
     font-size: 12px;
     font-weight: bold;
 }
+.game-small-year {
+    display: none;
+}
 .game-small-info {
     display: flex;
     flex-direction: column;
-    margin-left: 10px;
+    margin-left: 5px;
 }
 .game-small-info:hover {
     text-decoration: underline;

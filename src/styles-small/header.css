@@ -17,7 +17,7 @@
 }
 .vgp-logo {
     display: flex;
-    max-height: 40px;
+    height: 32px;
 }
 .menu {
     display: flex;
@@ -50,6 +50,7 @@
     background-color: white;
     border-radius: 5px;
     padding: 3px;
+    margin: 0 5px 0 5px;
     width: 40%;
 }
 .search-bar>svg {
