@@ -28,6 +28,7 @@ export const GamesProvider = ({children}:{children:any}) => {
     const [topTen, setTopTen] = useState<Game[]>([]);
     const [recentlyAdded, setRecentlyAdded] = useState<Game[]>([]);
 
+    // Loads game lists from Firestore
     useEffect(() => {
         getGameList().then(gl => {
             setGameList(gl);
@@ -52,6 +53,7 @@ export const GamesProvider = ({children}:{children:any}) => {
         });
     }
 
+    // search games when typing in search bar
     const searchGames = (searchText:string, limit:number) => {
         let foundedGames:Game[] = [];
         for(let g of gameList) {

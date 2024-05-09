@@ -17,22 +17,26 @@ export function MyGamesPage () {
 
     const navigate = useNavigate();
 
+    // If user is logged gets his game list from Firestore
     useEffect(()=>{
         if(userCtx!.currentUser !== null)
             getUserGames(userCtx!.currentUser.uid).then(gl=>setGameList(gl));
     }, [userCtx?.currentUser?.uid]);
 
     useEffect(()=>{
+        // Sends a notification if user hasn't had add games to his library yet
         if(gameList !== null && gameList.length==0)
             sendNotification(
             "Add games to MyGames",
             "You haven't added any games to your library yet. Click on '+ Add to MyGames' on any game page to do so.")
+        // If users has games in his library then best score and most played genre will be computed
         if(gameList !== null && gameList.length>0) {
             setBestScore(findBestScore());
             setMostPlayedGenre(findMostPlayedGenre());
         }
     }, [gameList]);
 
+    // Search for the game that has been valued most by user
     const findBestScore = () => {
         let title = "";
         let res = 0;
@@ -45,6 +49,7 @@ export function MyGamesPage () {
         return [title, res];
     }
 
+    // Search for the genre that is more present in user game list
     const findMostPlayedGenre = () => {
         let genres:any = {};
         for(let game of gameList!) {

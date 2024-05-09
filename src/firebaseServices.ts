@@ -1,6 +1,7 @@
 import { collection, deleteDoc, doc, getDoc, getDocs, limit, orderBy, query, setDoc, where} from "firebase/firestore";
 import { db } from "./main";
 
+// Interface for game taken from firestore
 export interface GameData {
     title: string;
     year: number;
@@ -15,10 +16,12 @@ export interface GameData {
     imgUrl: string;
 }
 
+// Interface used in App
 export interface Game extends GameData {
     id: string;
 }
 
+// Interface used to send user votes to firestore
 export interface UserVotes {
     plot: number;
     graphics: number;

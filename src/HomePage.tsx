@@ -13,6 +13,7 @@ export function HomePage () {
     const gameCtx = useContext(GamesContext);
     const userCtx = useContext(UserContext);
 
+    // If user is not logged sends a notification
     useEffect(()=>{
         if(userCtx?.currentUser == null && userCtx?.loading==false)
             sendNotification("SignIn", "Sign in to unlock all VGP functionalities.");
@@ -39,6 +40,7 @@ export function HomePage () {
     </>
 }
 
+// Handles the left side of main viewer
 function GameBig ({game, updateGames}:{game:Game, updateGames:()=>void}) {
     const navigate = useNavigate();
 
@@ -62,6 +64,7 @@ function GameBig ({game, updateGames}:{game:Game, updateGames:()=>void}) {
     </>
 }
 
+// Handles games in right side of main viewer
 function GameSmall({game}:{game:Game}) {
     const navigate = useNavigate();
     return <>
@@ -78,10 +81,11 @@ function GameSmall({game}:{game:Game}) {
 function GameCarousel({gameList, title}:{gameList:Game[], title:string}) {
     const navigate = useNavigate();
     const [scrollPosition, setScrollPosition] = useState(0);
-    const [maxScrollLeft, setMaxScrollLeft] = useState(Infinity);
+    const [maxScrollLeft, setMaxScrollLeft] = useState(Infinity); // Used to handle infinite scroll
     
     const viewerRef = useRef<HTMLDivElement>(null);
 
+    // Handles scroll with arrows
     const handleScroll = (scrollAmount:number) => {    
         let newMaxScrollLeft = viewerRef.current!.scrollWidth - viewerRef.current!.clientWidth;
         setMaxScrollLeft(newMaxScrollLeft);
@@ -136,6 +140,7 @@ function GameCarousel({gameList, title}:{gameList:Game[], title:string}) {
     </>
 }
 
+// Handles games slideshow in main viewer
 function ProgressBar({onProgressComplete}:{onProgressComplete:()=>void}) {
     const [progress, setProgress] = useState<number>(0);
 

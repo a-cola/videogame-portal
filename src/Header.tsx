@@ -13,11 +13,12 @@ export function Header() {
 
     const [menuOpen, setMenuOpen] = useState(false);
     const [searchActive, setSearchActive] = useState(false);
-    const [searchText, setSearchText] = useState("");
+    const [searchText, setSearchText] = useState(""); // Used for update dynamically the search dropdown
     const [results, setResults] = useState<Game[]>([]);
 
     const searchTextRef = useRef<HTMLInputElement>(null);
 
+    // Updates search results on searchText change
     useEffect(() => {
         let res = gameCtx.searchGames(searchText, 5);
         if (res.length > 0) {

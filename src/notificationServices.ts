@@ -10,6 +10,7 @@ export function notifyPermissionCheck() {
     }
 }
 
+// If user has give permission to send notifications then the notification will be sent otherwise an error will be printed
 export function sendNotification(title:string, body:string) {
     if(notifyPermissionCheck()) {
         navigator.serviceWorker.ready.then((registration) => {

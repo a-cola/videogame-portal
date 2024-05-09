@@ -51,12 +51,14 @@ export const isOnline = () => {
   return status;
 }
 
+// Manage switch from online to offline
 window.addEventListener('offline', () => {
   console.log("offline");
   disableNetwork(db);
   status = false;
 });
 
+// Handles switch from offline to online
 window.addEventListener('online', () => {
   console.log("online");
   enableNetwork(db);

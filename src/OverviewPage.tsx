@@ -10,10 +10,11 @@ export function OverviewPage () {
     const label = useLoaderData() as string;
 
     const [gameList, setGameList] = useState<Game[]|null>(null)
-    const [title, setTitle] = useState<string>("")
+    const [title, setTitle] = useState<string>("") // Indicates the title of loaded list
 
     const gameCtx = useContext(GamesContext);
 
+    // Since that OverviewPage is used for multiple purposes, it loads game list and change title according to current URL
     useEffect(()=>{
         if(window.location.href.includes("/genres/")) {
             if(label==="all") {

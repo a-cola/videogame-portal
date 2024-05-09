@@ -18,16 +18,18 @@ export function GamePage () {
     const [game, setGame] = useState<Game|null>(null);
     const [userHasGame, setUserHasGame] = useState(false);
     const [userGame, setUserGame] = useState<Game|null>(null);
-    const [lastVote, setLastVote] = useState<number>(Date.now());
+    const [lastVote, setLastVote] = useState<number>(Date.now()); // Store time when user has sent last votes
 
-    const [voteVisibility, setVoteVisibility] = useState("none");
+    const [voteVisibility, setVoteVisibility] = useState("none"); // Set visibility for the vote modal
 
+    // Update the game when id from URL changes
     useEffect(() => {
         getGameById(id).then(g => {
             setGame(g);
         })
     }, [id])
 
+    // Get the game from user in firestore and set the state userHasGame
     useEffect(() => {
         if(userCtx!.currentUser !== null)
             getGameFromUser(userCtx!.currentUser.uid, id).then(g => {
@@ -42,11 +44,13 @@ export function GamePage () {
         }
     }, [game, userCtx?.currentUser, userHasGame, lastVote])
 
+    // Sends notification when user has a game but he hasn't submit vote yet
     useEffect(()=>{
         if(userHasGame==true && userGame?.vote == 0)
             sendNotification("Vote your games", "Click on the 'Vote' button to submit your scores.");
     }, [userHasGame, userGame])
 
+    // If user is logged adds user game to user storage in Firestore
     const addToMyGames = () => {
         if(userCtx!.currentUser == null)
             navigate("/login");
@@ -69,17 +73,20 @@ export function GamePage () {
         }
     }
 
+    // Removes user game from user storage in Firestore
     const deleteFromMyGames = () => {
         deleteGameFromUser(userCtx!.currentUser!.uid, id);
         setUserHasGame(false);
     }
 
+    // Adds user votes to user game in Firestore
     const addVote = (votes:UserVotes) => {
         addGameVote(userCtx!.currentUser!.uid, id, votes);
         setLastVote(Date.now());
         setVoteVisibility("none");
     }
 
+    // Selects icon to display game platforms
     const iconSelector = (platform:string) => {
         switch(platform) {
             case "Windows":
@@ -174,6 +181,7 @@ export function GamePage () {
     </>
 }
 
+// Represents a single vote in game page
 function Vote ({title, value, dim, color, stroke}:{title:string, value:number, dim:number, color:string, stroke:number}) {
     const titleConverter = () => {
         switch(title) {
@@ -261,6 +269,7 @@ function VoteModal ({voteVisibility, setVoteVisibility, addVote}:{voteVisibility
 
     const [voteError, setVoteError] = useState(false);
 
+    // Checks if inserted votes are valid
     const checkVotes = () => {
         let sum = 0;
         for(let r of voteRefs) {
@@ -276,6 +285,7 @@ function VoteModal ({voteVisibility, setVoteVisibility, addVote}:{voteVisibility
         return avg;
     }
 
+    // If checkVotes return the average sends vote to Firestore
     const handleVote = () => {
         let userVotes:UserVotes;
         let avg = checkVotes();

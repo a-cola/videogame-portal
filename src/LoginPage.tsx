@@ -42,6 +42,7 @@ export function LoginPage () {
             })
         }
 
+        // If app is running on mobile browsers it uses Redirect method instead of Popup method
         if(isMobile()) {
             signInWithRedirect(auth, provider)
                 .then(() => navigate(-1))
