@@ -20,6 +20,7 @@ export function GamePage () {
     const [userGame, setUserGame] = useState<Game|null>(null);
     const [lastVote, setLastVote] = useState<number>(Date.now()); // Store time when user has sent last votes
     const [voteVisibility, setVoteVisibility] = useState("none"); // Set visibility for the vote modal
+    const [notificationSent, setNotificationSent] = useState(false); // Prevents sending duplicate notifications
 
     // Update the game when id from URL changes
     useEffect(() => {
@@ -32,7 +33,7 @@ export function GamePage () {
     useEffect(() => {
         if(userCtx!.currentUser !== null) {
             getGameFromUser(userCtx!.currentUser.uid, id).then(g => {
-                if(g!==null && (userGame==null || g.id!==userGame.id)) {
+                if(g!==null) {
                     setUserHasGame(true);
                     setUserGame(g);
                 }
@@ -46,8 +47,9 @@ export function GamePage () {
 
     // Sends notification when user has a game but he hasn't submit vote yet
     useEffect(()=>{
-        if(userHasGame==true && userGame?.vote == 0) {
+        if(userHasGame==true && userGame?.vote == 0 && !notificationSent) {
             sendNotification("Vote your games", "Click on the 'Vote' button to submit your scores.");
+            setNotificationSent(true);
         }
     }, [userHasGame, userGame]);
 
@@ -310,7 +312,7 @@ function VoteModal ({voteVisibility, setVoteVisibility, addVote}:{voteVisibility
         <div className="vote-modal" style={{display:`${voteVisibility}`}}>
             <div className="vote-modal-container">
                 <button className="vote-exit-button" onClick={()=>setVoteVisibility("none")}>&times;</button>
-                {voteError?<span className="vote-error">Controllare i voti e riprovare...</span>:<></>}
+                {voteError?<span className="vote-error">Check votes and try again...</span>:<></>}
                 <div className="vote-modal-top">
                     <VoteModalBox ref={plotRef} label="Plot/Concept"/>
                     <VoteModalBox ref={gameplayRef} label="Gameplay"/>
