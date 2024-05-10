@@ -42,7 +42,7 @@ export function MyGamesPage () {
 
     // Search for the game that has been valued most by user
     const findBestScore = () => {
-        let title = "";
+        let title = " - ";
         let res = 0;
         for(let game of gameList!) {
             if(game.vote > res) {
