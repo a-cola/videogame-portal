@@ -28,15 +28,11 @@ export function Header() {
             setSearchActive(false);
         }
         setResults(res);
-    }, [searchText])
+    }, [searchText]);
 
     return <>
         <nav className="header">
-            <button
-                className="home-button" 
-                type="button"
-                onClick={()=>navigate('/')}
-            >
+            <button className="home-button" type="button" onClick={()=>navigate('/')}>
                 <img className="vgp-logo" src="../VGP_Logo.png" alt="vgp logo"/>
             </button>
             <button className="menu" type="button" onClick={()=>setMenuOpen(!menuOpen)} style={menuOpen?{backgroundColor:"#00a2ff"}:{}}>
@@ -69,8 +65,7 @@ export function Header() {
             :<button className="login-button" type="button" onClick={()=>{userCtx?.logout(); navigate('/')}}>
                 <span>Logout</span>
             </button>
-            }
-            
+            } 
         </nav>
         {menuOpen?<MenuDropdown setMenuOpen={setMenuOpen}/>:<></>}
         {searchActive?<SearchDropdown results={results}/>:<></>}
@@ -92,7 +87,7 @@ function MenuDropdown({setMenuOpen}:{setMenuOpen:React.Dispatch<React.SetStateAc
         'Space',         'Strategy',
         'Superheroes',   'Survival',
         'TPS',           'Time Travel',
-        'Zombie'
+        'Zombie',
     ];
 
     const navigate = useNavigate();
@@ -104,11 +99,11 @@ function MenuDropdown({setMenuOpen}:{setMenuOpen:React.Dispatch<React.SetStateAc
                 {GENRES.map((g)=><button
                     key={g}
                     className="dropdown-genre"
-                    onClick={()=>{navigate(`/genres/${g}`); setMenuOpen(false)}}>{g}</button>)}
+                    onClick={()=>{setMenuOpen(false); navigate(`/genres/${g}`);}}>{g}</button>)}
             </div>
             <button 
                 className="dropdown-showall"
-                onClick={()=>{navigate(`/genres/all`); setMenuOpen(false)}}>Show All Games</button>
+                onClick={()=>{setMenuOpen(false); navigate(`/genres/all`);}}>Show All Games</button>
         </div>
     </>
 }

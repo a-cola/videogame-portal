@@ -19,7 +19,6 @@ export function GamePage () {
     const [userHasGame, setUserHasGame] = useState(false);
     const [userGame, setUserGame] = useState<Game|null>(null);
     const [lastVote, setLastVote] = useState<number>(Date.now()); // Store time when user has sent last votes
-
     const [voteVisibility, setVoteVisibility] = useState("none"); // Set visibility for the vote modal
 
     // Update the game when id from URL changes
@@ -27,33 +26,36 @@ export function GamePage () {
         getGameById(id).then(g => {
             setGame(g);
         })
-    }, [id])
+    }, [id]);
 
     // Get the game from user in firestore and set the state userHasGame
     useEffect(() => {
-        if(userCtx!.currentUser !== null)
+        if(userCtx!.currentUser !== null) {
             getGameFromUser(userCtx!.currentUser.uid, id).then(g => {
                 if(g!==null && (userGame==null || g.id!==userGame.id)) {
                     setUserHasGame(true);
                     setUserGame(g);
                 }
             })
+        }
         else {
             setUserHasGame(false);
             setUserGame(null);
         }
-    }, [game, userCtx?.currentUser, userHasGame, lastVote])
+    }, [game, userCtx?.currentUser, userHasGame, lastVote]);
 
     // Sends notification when user has a game but he hasn't submit vote yet
     useEffect(()=>{
-        if(userHasGame==true && userGame?.vote == 0)
+        if(userHasGame==true && userGame?.vote == 0) {
             sendNotification("Vote your games", "Click on the 'Vote' button to submit your scores.");
-    }, [userHasGame, userGame])
+        }
+    }, [userHasGame, userGame]);
 
     // If user is logged adds user game to user storage in Firestore
     const addToMyGames = () => {
-        if(userCtx!.currentUser == null)
+        if(userCtx!.currentUser == null) {
             navigate("/login");
+        }
         else {
             let userGame:GameData = {
                 title:game!.title,
@@ -66,25 +68,25 @@ export function GamePage () {
                 graphics:0,
                 audio:0,
                 enviroment:0,
-                vote:0
+                vote:0,
             };
             addGameToUser(userCtx!.currentUser.uid, id, userGame);
             setUserHasGame(true);
         }
-    }
+    };
 
     // Removes user game from user storage in Firestore
     const deleteFromMyGames = () => {
         deleteGameFromUser(userCtx!.currentUser!.uid, id);
         setUserHasGame(false);
-    }
+    };
 
     // Adds user votes to user game in Firestore
     const addVote = (votes:UserVotes) => {
         addGameVote(userCtx!.currentUser!.uid, id, votes);
         setLastVote(Date.now());
         setVoteVisibility("none");
-    }
+    };
 
     // Selects icon to display game platforms
     const iconSelector = (platform:string) => {
@@ -100,7 +102,7 @@ export function GamePage () {
             case "MacOS":
                 return <AppleIcon key={platform}/>
         }
-    }
+    };
 
     if(game===null) return <></>
 
@@ -162,8 +164,7 @@ export function GamePage () {
                                 <Vote title="vote" value={game.vote} dim={150} color="#b700ff" stroke={20}/>
                             </div>
                         </div>
-                        }
-                            
+                        } 
                         <div className="game-buttons">
                             {userHasGame
                             ?<>
@@ -197,8 +198,8 @@ function Vote ({title, value, dim, color, stroke}:{title:string, value:number, d
                 return "Gameplay";
             case "vote":
                 return "Average";
-        }
-    }
+        };
+    };
 
     return <>
         <div className="game-vote-single">
@@ -224,35 +225,35 @@ function CircularProgressBar ({value, dim, color, stroke}:{value:number, dim:num
     
     return (
         <svg width={dim} height={dim} viewBox={`0 0 ${dim} ${dim}`}>
-          <circle
-            cx={dim/2}
-            cy={dim/2}
-            r={radius}
-            fill="none"
-            stroke="transparent"
-            strokeWidth={stroke}
-          />
-          <circle
-            cx={dim/2}
-            cy={dim/2}
-            r={radius}
-            fill="none"
-            stroke="gray"
-            strokeWidth={stroke}
-            strokeDasharray={`${circumference - (90 / 360) * circumference} ${circumference}`}
-          />
-          <circle
-            cx={dim/2}
-            cy={dim/2}
-            r={radius}
-            fill="none"
-            stroke={color}
-            strokeWidth={stroke}
-            strokeDasharray={`${circumference - (90 / 360) * circumference} ${circumference}`}
-            strokeDashoffset={offset}
-          />
+            <circle
+                cx={dim/2}
+                cy={dim/2}
+                r={radius}
+                fill="none"
+                stroke="transparent"
+                strokeWidth={stroke}
+            />
+            <circle
+                cx={dim/2}
+                cy={dim/2}
+                r={radius}
+                fill="none"
+                stroke="gray"
+                strokeWidth={stroke}
+                strokeDasharray={`${circumference - (90 / 360) * circumference} ${circumference}`}
+            />
+            <circle
+                cx={dim/2}
+                cy={dim/2}
+                r={radius}
+                fill="none"
+                stroke={color}
+                strokeWidth={stroke}
+                strokeDasharray={`${circumference - (90 / 360) * circumference} ${circumference}`}
+                strokeDashoffset={offset}
+            />
         </svg>
-  );
+    );
 }
 
 function VoteModal ({voteVisibility, setVoteVisibility, addVote}:{voteVisibility:string, setVoteVisibility:React.Dispatch<React.SetStateAction<string>>, addVote:(game: UserVotes) => void}) {
@@ -264,8 +265,8 @@ function VoteModal ({voteVisibility, setVoteVisibility, addVote}:{voteVisibility
 
     const voteRefs = [
         plotRef, gameplayRef, graphicsRef,
-        audioRef, enviromentRef
-    ]
+        audioRef, enviromentRef,
+    ];
 
     const [voteError, setVoteError] = useState(false);
 
@@ -283,9 +284,9 @@ function VoteModal ({voteVisibility, setVoteVisibility, addVote}:{voteVisibility
         let avg = Math.floor((sum/5*10))/10;
         setVoteError(false);
         return avg;
-    }
+    };
 
-    // If checkVotes return the average sends vote to Firestore
+    // If checkVotes return the average sends votes to Firestore
     const handleVote = () => {
         let userVotes:UserVotes;
         let avg = checkVotes();
@@ -303,7 +304,7 @@ function VoteModal ({voteVisibility, setVoteVisibility, addVote}:{voteVisibility
 
         addVote(userVotes);
         setVoteVisibility("none");
-    }
+    };
 
     return <>
         <div className="vote-modal" style={{display:`${voteVisibility}`}}>

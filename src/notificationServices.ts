@@ -19,7 +19,7 @@ export function sendNotification(title:string, body:string) {
                 body:body,
                 icon:"VGP_Logo_Small.png",
             })
-        })
+        });
     }
     else {
         console.error("Notification permission: denied");

@@ -8,15 +8,15 @@ type GamesContextType = {
     topTen: Game[];
     recentlyAdded: Game[];
     updateFourGames: () => void;
-    searchGames: (searchText:string, limit:number) => Game[]
-}
+    searchGames: (searchText:string, limit:number) => Game[];
+};
 
 export const GamesContext = createContext<GamesContextType>({
-    loading:true,
-    gameList:[],
-    fourGames:[],
-    topTen:[],
-    recentlyAdded:[],
+    loading: true,
+    gameList: [],
+    fourGames: [],
+    topTen: [],
+    recentlyAdded: [],
     updateFourGames: ()=>{},
     searchGames: ()=>({} as Game[]),
 });
@@ -42,7 +42,7 @@ export const GamesProvider = ({children}:{children:any}) => {
             setFourGames(fourGamesInit);
             setLoading(false);
         });
-    }, [])
+    }, []);
 
     const updateFourGames = () => {
         setFourGames((prevFourGames) => {
@@ -51,21 +51,24 @@ export const GamesProvider = ({children}:{children:any}) => {
             newFourGames.push(gameList[Math.floor(Math.random() * gameList.length)]);
             return newFourGames;
         });
-    }
+    };
 
     // search games when typing in search bar
     const searchGames = (searchText:string, limit:number) => {
         let foundedGames:Game[] = [];
         for(let g of gameList) {
-            if(searchText.length == 0)
-                break
-            if(g.title.toLowerCase().includes(searchText.toLowerCase()))
-                foundedGames.push(g);
-            if(foundedGames.length >= limit)
+            if(searchText.length == 0) {
                 break;
+            }
+            if(g.title.toLowerCase().includes(searchText.toLowerCase())) {
+                foundedGames.push(g);
+            }
+            if(foundedGames.length >= limit) {
+                break;
+            }
         }
         return foundedGames;
-    }
+    };
 
     return <>
         <GamesContext.Provider value={{loading, gameList, fourGames, topTen, recentlyAdded, updateFourGames, searchGames}}>

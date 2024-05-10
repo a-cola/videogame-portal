@@ -39,7 +39,7 @@ export const getGameList = async (genre?:string) => {
     const gameSnapshot = await getDocs(gameQuery);
     const gameList:Game[] = gameSnapshot.docs.map(doc => ({id:doc.id, ...(doc.data() as GameData)}));
     return gameList;
-}
+};
 
 export const getTopTen = async () => {
     const gameCollection = collection(db, "videogames");
@@ -47,7 +47,7 @@ export const getTopTen = async () => {
     const gameSnapshot = await getDocs(gameQuery);
     const gameTopTen:Game[] = gameSnapshot.docs.map(doc => ({id:doc.id, ...(doc.data() as GameData)}));
     return gameTopTen;
-}
+};
 
 export const getRecentlyAdded = async () => {
     const gameCollection = collection(db, "videogames");
@@ -55,24 +55,24 @@ export const getRecentlyAdded = async () => {
     const gameSnapshot = await getDocs(gameQuery);
     const gameTopTen:Game[] = gameSnapshot.docs.map(doc => ({id:doc.id, ...(doc.data() as GameData)}));
     return gameTopTen;
-}
+};
 
 export const getGameById = async (id:string) => {
     const gameDocRef = doc(db, "videogames", id);
     const gameSnapshot = await getDoc(gameDocRef);
     const game:Game = gameSnapshot.data() as Game;
     return game;
-}
+};
 
 export const addGameToUser = async (uid:string, gameId:string, gameData:GameData) => {
     const gameDocRef = doc(db, "users", uid, "mygames", gameId);
     await setDoc(gameDocRef, gameData);
-}
+};
 
 export const addGameVote = async (uid:string, gameId:string, gameVotes:UserVotes) => {
     const gameDocRef = doc(db, "users", uid, "mygames", gameId);
     await setDoc(gameDocRef, gameVotes, {merge:true});
-}
+};
 
 export const getUserGames = async (uid:string) => {
     const gameCollection = collection(db, "users", uid, "mygames");
@@ -80,18 +80,18 @@ export const getUserGames = async (uid:string) => {
     const gameSnapshot = await getDocs(gameQuery);
     const userGames:Game[] = gameSnapshot.docs.map(doc => ({id:doc.id, ...(doc.data() as GameData)}));
     return userGames;
-}
+};
 
 export const getGameFromUser = async (uid:string, gameId:string) => {
     const gameDocRef = doc(db, "users", uid, "mygames", gameId);
     const gameSnapshot = await getDoc(gameDocRef);
-    if(gameSnapshot.exists())
+    if(gameSnapshot.exists()) {
         return gameSnapshot.data() as Game;
-    else
-        return null
-}
+    }
+    return null
+};
 
 export const deleteGameFromUser = async (uid:string, gameId:string) => {
     const gameDocRef = doc(db, "users", uid, "mygames", gameId);
     await deleteDoc(gameDocRef);
-}
+};

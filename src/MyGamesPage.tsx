@@ -9,26 +9,30 @@ import { NotifyRequest } from "./NotifyRequest";
 import { sendNotification } from "./notificationServices";
 
 export function MyGamesPage () {
-    const [gameList, setGameList] = useState<Game[]|null>(null)
-    const userCtx = useContext(UserContext);
-
+    const [gameList, setGameList] = useState<Game[]|null>(null);
     const [bestScore, setBestScore] = useState<(string | number)[]>([]);
     const [mostPlayedGenre, setMostPlayedGenre] = useState<string>("");
+
+    const userCtx = useContext(UserContext);
 
     const navigate = useNavigate();
 
     // If user is logged gets his game list from Firestore
     useEffect(()=>{
-        if(userCtx!.currentUser !== null)
+        if(userCtx!.currentUser !== null) {
             getUserGames(userCtx!.currentUser.uid).then(gl=>setGameList(gl));
+        }
     }, [userCtx?.currentUser?.uid]);
 
     useEffect(()=>{
         // Sends a notification if user hasn't had add games to his library yet
-        if(gameList !== null && gameList.length==0)
+        if(gameList !== null && gameList.length==0) {
             sendNotification(
-            "Add games to MyGames",
-            "You haven't added any games to your library yet. Click on '+ Add to MyGames' on any game page to do so.")
+                "Add games to MyGames",
+                "You haven't added any games to your library yet. Click on '+ Add to MyGames' on any game page to do so."
+            )
+        }
+
         // If users has games in his library then best score and most played genre will be computed
         if(gameList !== null && gameList.length>0) {
             setBestScore(findBestScore());
@@ -47,17 +51,22 @@ export function MyGamesPage () {
             }
         }
         return [title, res];
-    }
+    };
 
     // Search for the genre that is more present in user game list
     const findMostPlayedGenre = () => {
         let genres:any = {};
         for(let game of gameList!) {
             for(let genre of game.genres) {
-                if(genre in genres) genres[genre]++;
-                else genres[genre] = 1;
+                if(genre in genres) {
+                    genres[genre]++;
+                }
+                else {
+                    genres[genre] = 1;
+                }
             }
         }
+
         let res = 0;
         let genre = "";
         for(let g in genres) {
@@ -67,7 +76,7 @@ export function MyGamesPage () {
             }
         }
         return genre;
-    }
+    };
 
     if(userCtx?.currentUser == null) navigate('/');
 

@@ -15,9 +15,10 @@ export function HomePage () {
 
     // If user is not logged sends a notification
     useEffect(()=>{
-        if(userCtx?.currentUser == null && userCtx?.loading==false)
+        if(userCtx?.currentUser == null && userCtx?.loading==false) {
             sendNotification("SignIn", "Sign in to unlock all VGP functionalities.");
-    }, [userCtx?.loading])
+        }
+    }, [userCtx?.loading]);
 
     if(gameCtx.loading) return;
 
@@ -53,10 +54,7 @@ function GameBig ({game, updateGames}:{game:Game, updateGames:()=>void}) {
                 <span className="game-big-year">{game.year}</span>
                 <span className="game-big-genres">
                     {game.genres.map(genre => {
-                        return <span 
-                            className="game-big-genre" 
-                            key={genre}
-                            onClick={()=>navigate(`/genres/${genre}`)}>{genre}</span>
+                        return <span className="game-big-genre" key={genre} onClick={()=>navigate(`/genres/${genre}`)}>{genre}</span>
                     })}
                 </span>
             </div>
@@ -67,6 +65,7 @@ function GameBig ({game, updateGames}:{game:Game, updateGames:()=>void}) {
 // Handles games in right side of main viewer
 function GameSmall({game}:{game:Game}) {
     const navigate = useNavigate();
+    
     return <>
         <div className="game-small" onClick={()=>navigate(`/games/${game.id}`)}>
             <img src={game.imgUrl} onError={e=>e.currentTarget.src="/Cover_Not_Loaded.png"} alt={game.title}/>
@@ -80,6 +79,7 @@ function GameSmall({game}:{game:Game}) {
 
 function GameCarousel({gameList, title}:{gameList:Game[], title:string}) {
     const navigate = useNavigate();
+
     const [scrollPosition, setScrollPosition] = useState(0);
     const [maxScrollLeft, setMaxScrollLeft] = useState(Infinity); // Used to handle infinite scroll
     
@@ -106,7 +106,7 @@ function GameCarousel({gameList, title}:{gameList:Game[], title:string}) {
                 viewerRef.current!.scrollLeft = newScrollPosition;
             }
         }
-    }
+    };
     
     return <>
         <div className="carousel-container">

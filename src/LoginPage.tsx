@@ -40,7 +40,7 @@ export function LoginPage () {
             return devices.some((device)=>{
                 return navigator.userAgent.match(device);
             })
-        }
+        };
 
         // If app is running on mobile browsers it uses Redirect method instead of Popup method
         if(isMobile()) {
@@ -51,7 +51,7 @@ export function LoginPage () {
                     setGoogleError(true);
                     setLoginError(false);
                     setRegisterError(false);
-                })
+                });
         }
         else {
             signInWithPopup(auth, provider)
@@ -61,13 +61,14 @@ export function LoginPage () {
                     setGoogleError(true);
                     setLoginError(false);
                     setRegisterError(false);
-                })
+                });
         }
     }
 
     const login = () => {
         if(!isOnline()) return;
-        if(emailRef.current!.value !== null && passwordRef.current!.value !== null)
+        
+        if(emailRef.current!.value !== null && passwordRef.current!.value !== null) {
             signInWithEmailAndPassword(auth, emailRef.current!.value, passwordRef.current!.value)
                 .then(()=>navigate(-1))
                 .catch((error) => {
@@ -75,12 +76,14 @@ export function LoginPage () {
                     setLoginError(true);
                     setRegisterError(false);
                     setGoogleError(false);
-                })
+                });
+        }
     }
 
     const register = () => {
         if(!isOnline()) return;
-        if(emailRef.current!.value !== null && passwordRef.current!.value !== null)
+
+        if(emailRef.current!.value !== null && passwordRef.current!.value !== null) {
             createUserWithEmailAndPassword(auth, emailRef.current!.value, passwordRef.current!.value)
                 .then(()=>navigate(-1))
                 .catch((error) => {
@@ -88,7 +91,8 @@ export function LoginPage () {
                     setRegisterError(true);
                     setLoginError(false);
                     setGoogleError(false);
-                })
+                });
+        }
     }
 
     return <>
@@ -101,12 +105,12 @@ export function LoginPage () {
                         type="text"
                         placeholder="Insert e-mail"
                         ref={emailRef}
-                        />
+                    />
                     <input
                         type="password" 
                         placeholder="Insert password"
                         ref={passwordRef}
-                        />
+                    />
                     <div className="login-register-buttons">
                         <button type="button" className="sign-in-button" onClick={login}>Sign in</button>
                         <button type="button" className="register-button" onClick={register}>Register</button>

@@ -9,8 +9,8 @@ import { GamesContext } from "./GamesContext";
 export function OverviewPage () {
     const label = useLoaderData() as string;
 
-    const [gameList, setGameList] = useState<Game[]|null>(null)
-    const [title, setTitle] = useState<string>("") // Indicates the title of loaded list
+    const [gameList, setGameList] = useState<Game[]|null>(null);
+    const [title, setTitle] = useState<string>(""); // Indicates the title of loaded list
 
     const gameCtx = useContext(GamesContext);
 
@@ -23,21 +23,22 @@ export function OverviewPage () {
                     setTitle("All Games");
                 });
             }
-            else
+            else {
                 getGameList(label).then(gl=>{
                     setGameList(gl);
                     setTitle(label);
                 });
+            }
         }
         else if(window.location.href.includes("/search/")) {
             setGameList(gameCtx.searchGames(label, Infinity));
             setTitle(`Search results for "${label}":`);
         }
-    }, [label, gameCtx.loading])
+    }, [label, gameCtx.loading]);
 
     if(gameCtx.loading) return <></>
 
-    if(gameList === null || gameList.length === 0) return
+    if(gameList === null || gameList.length === 0) return <></>
 
     return <>
         <Header />

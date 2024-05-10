@@ -1,17 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { HomePage } from './HomePage'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { HomePage } from './HomePage'
+import { LoginPage } from './LoginPage';
+import { OverviewPage } from './OverviewPage';
+import { GamePage } from './GamePage';
+import { MyGamesPage } from './MyGamesPage';
+import { GamesProvider } from './GamesContext';
+import { UserProvider } from './UserContext';
 
 import { initializeApp } from "firebase/app";
-import { GamesProvider } from './GamesContext';
 import { getAuth } from 'firebase/auth';
-import { /*getFirestore,*/ disableNetwork, enableNetwork, initializeFirestore, persistentLocalCache } from 'firebase/firestore';
-import { GamePage } from './GamePage';
-import { OverviewPage } from './OverviewPage';
-import { LoginPage } from './LoginPage';
-import { UserProvider } from './UserContext';
-import { MyGamesPage } from './MyGamesPage';
+import { disableNetwork, enableNetwork, initializeFirestore, persistentLocalCache } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDj-HwsjG8HoEI0Xb7rsC4ORC2S6RbekRc",
@@ -24,7 +24,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-export const db = initializeFirestore(app, {localCache: persistentLocalCache()});
+export const db = initializeFirestore(app, {localCache: persistentLocalCache()}); // Enables persistent local cache for offline experience
 
 const router = createBrowserRouter(
   [
@@ -33,9 +33,9 @@ const router = createBrowserRouter(
     { path:'/genres/:label', element:<OverviewPage />, loader:listLoaderLabel, errorElement: <span>Errore Overview</span>},
     { path:'/games/:id', element:<GamePage />, loader: listLoaderId, errorElement: <span>Errore Pagina Game</span>},
     { path:'/mygames', element:<MyGamesPage />, errorElement: <span>Errore MyGames</span>},
-    { path:'/search/:label', element:<OverviewPage />, loader:listLoaderLabel, errorElement: <span>Errore Overview</span>}
+    { path:'/search/:label', element:<OverviewPage />, loader:listLoaderLabel, errorElement: <span>Errore Overview</span>},
   ]
-)
+);
 
 function listLoaderId({params}:any) {
   return params.id;
@@ -53,17 +53,15 @@ export const isOnline = () => {
 
 // Manage switch from online to offline
 window.addEventListener('offline', () => {
-  console.log("offline");
   disableNetwork(db);
   status = false;
 });
 
 // Handles switch from offline to online
 window.addEventListener('online', () => {
-  console.log("online");
   enableNetwork(db);
   status = true;
-  location.reload();
+  location.reload(); // If app turns back online reloads page
 });
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

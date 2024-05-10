@@ -2,7 +2,7 @@ import { useState } from "react";
 import { notifyPermissionCheck, sendNotification } from "./notificationServices";
 
 export function NotifyRequest() {
-    const [displayRequest, setDisplayRequest] = useState(!notifyPermissionCheck())
+    const [displayRequest, setDisplayRequest] = useState(!notifyPermissionCheck());
 
     return <>
         <div className="notify-request" style={{display:displayRequest?"flex":"none"}}>
@@ -12,12 +12,12 @@ export function NotifyRequest() {
                     Notification.requestPermission().then((permission) => {
                         if(permission === "granted") {
                             setDisplayRequest(false);
-                            sendNotification("Notification Enabled", "VGP can now send you notification!");
+                            sendNotification("Notification Enabled", "VGP can now send you notifications!");
                         }
-                        else 
+                        else {
                             setDisplayRequest(false);
-                    })
-                    }}>ALLOW</button>
+                        }
+                    })}}>ALLOW</button>
                 <button onClick={()=>setDisplayRequest(false)}>DENY</button>
             </div>
         </div>

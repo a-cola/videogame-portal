@@ -118,7 +118,6 @@
 .login-button:active {
     background-color: #ff9a00;
 }
-
 @keyframes dropdown-open {
     0% {
         opacity: 0;
@@ -180,7 +179,6 @@
 .dropdown-showall:hover {
     scale: 1.1;
 }
-
 .search-dropdown {
     display: flex;
     width: 100%;

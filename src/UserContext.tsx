@@ -6,9 +6,9 @@ type UserContextType = {
     currentUser: User | null;
     loading: boolean;
     logout: ()=>Promise<void>;
-}
+};
 
-export const UserContext = createContext<UserContextType | undefined>(undefined)
+export const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({children}:{children:any}) => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -25,7 +25,7 @@ export const UserProvider = ({children}:{children:any}) => {
 
     const logout = async () => {
         await signOut(auth);
-    }
+    };
 
     return <>
         <UserContext.Provider value={{currentUser, loading, logout}}>
