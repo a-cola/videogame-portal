@@ -50,3 +50,8 @@ Let’s break down the different sections of the app:
 To explore all functionalities of the app without creating a new account, use the following test user credentials:
 - **Username**: `account@test.com`
 - **Password**: `test1234`
+
+#### Offline Experience
+- If you are already logged in and the connection turns offline, you can use all functionality of the app, and once back online, changes will be uploaded to firestore.
+- If you aren't logged in and the connection turns offline, you can still explore the site, minus the functionalities reserved for logged-in users.
+- In both cases, if the game's covers have not been previosly loaded, a fallback image will be displayed when offline.
