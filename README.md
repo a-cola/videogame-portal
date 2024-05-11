@@ -7,9 +7,11 @@ The app has been implemented using **React**, **Typescript**, and **Vite**.
 
 ### How to run
 In the terminal run commands:
-1. Install dependencies: `npm i`
-2. Build the app: `npm run build`
-3. Start the server: `npm run start`
+1. Install dependencies: `npm i`.
+2. Build the app: `npm run build`.
+3. Start the server: `npm run start`.
+4. Open the app: Enter `o` in the terminal or copy the provided link into any browser.
+5. Close the server: Enter `q` in the terminal.
 
 ### How to use
 Let’s break down the different sections of the app:
