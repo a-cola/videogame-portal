@@ -10,7 +10,8 @@
     background-color: rgb(50, 50, 50);
     border-radius: 10px;
     width: fit-content;
-    width: 1150px;
+    width: 80%;
+    max-width: 1200px;
     height: 570px;
     margin: 20px;
 }
@@ -80,7 +81,7 @@
     justify-content: center;
     border-radius: 10px;
     background-color: rgb(60, 60, 60);
-    width: 350px;
+    width: 35%;
 }
 .game-small {
     display: flex;
@@ -103,6 +104,7 @@
     display: flex;
     flex-direction: column;
     margin-left: 10px;
+    width: 100%;
 }
 .game-small-info:hover {
     text-decoration: underline;
