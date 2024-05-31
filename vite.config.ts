@@ -27,6 +27,12 @@ export default defineConfig({
             sizes: "192x192",
             type: "image/png",
           },
+          {
+            src: 'icons/VGP_Logo_512.png',
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "maskable"
+          },
         ]
       },
       workbox: {
