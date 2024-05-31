@@ -13,20 +13,18 @@ export function HomePage () {
     const gameCtx = useContext(GamesContext);
     const userCtx = useContext(UserContext);
 
-    const [notificationSent, setNotificationSent] = useState<boolean>(false);
-
     // If user is not logged sends a notification
     useEffect(()=>{
-        if(userCtx?.currentUser == null && userCtx?.loading==false && !notificationSent) {
+        if(userCtx?.currentUser == null && userCtx?.loading==false && !userCtx.homeNotification) {
             sendNotification("SignIn", "Sign in to unlock all VGP functionalities.");
-            setNotificationSent(true);
+            userCtx.setHomeNotification(true);
         }
     }, [userCtx?.loading]);
 
     if(gameCtx.loading) return;
 
     return <>
-        <NotifyRequest />
+        <NotifyRequest denied={userCtx!.notificationDenied} setDenied={userCtx!.setNotificationDenied}/>
         <Header />
         <section className="home-page-container">
             <div className="main-viewer">

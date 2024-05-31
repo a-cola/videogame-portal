@@ -20,7 +20,6 @@ export function GamePage () {
     const [userGame, setUserGame] = useState<Game|null>(null);
     const [lastVote, setLastVote] = useState<number>(Date.now()); // Store time when user has sent last votes
     const [voteVisibility, setVoteVisibility] = useState("none"); // Set visibility for the vote modal
-    const [notificationSent, setNotificationSent] = useState(false); // Prevents sending duplicate notifications
 
     // Update the game when id from URL changes
     useEffect(() => {
@@ -47,9 +46,9 @@ export function GamePage () {
 
     // Sends notification when user has a game but he hasn't submit vote yet
     useEffect(()=>{
-        if(userHasGame==true && userGame?.vote == 0 && !notificationSent) {
+        if(userHasGame==true && userGame?.vote == 0 && !userCtx?.gameNotification) {
             sendNotification("Vote your games", "Click on the 'Vote' button to submit your scores.");
-            setNotificationSent(true);
+            userCtx!.setGameNotification(true);
         }
     }, [userHasGame, userGame]);
 
@@ -109,7 +108,7 @@ export function GamePage () {
     if(game===null) return <></>
 
     return <>
-        <NotifyRequest />
+        <NotifyRequest denied={userCtx!.notificationDenied} setDenied={userCtx!.setNotificationDenied}/>
         <VoteModal voteVisibility={voteVisibility} setVoteVisibility={setVoteVisibility} addVote={addVote}/>
         <Header />
         <section className="game-page-container">

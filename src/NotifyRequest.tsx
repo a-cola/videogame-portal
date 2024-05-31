@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { notifyPermissionCheck, sendNotification } from "./notificationServices";
 
-export function NotifyRequest() {
+export function NotifyRequest({denied, setDenied}:{denied:boolean, setDenied:React.Dispatch<React.SetStateAction<boolean>>}) {
     const [displayRequest, setDisplayRequest] = useState(!notifyPermissionCheck());
+
+    if(denied) return <></>
 
     return <>
         <div className="notify-request" style={{display:displayRequest?"flex":"none"}}>
@@ -18,7 +20,7 @@ export function NotifyRequest() {
                             setDisplayRequest(false);
                         }
                     })}}>ALLOW</button>
-                <button onClick={()=>setDisplayRequest(false)}>DENY</button>
+                <button onClick={()=>{setDisplayRequest(false); setDenied(true)}}>DENY</button>
             </div>
         </div>
     </>
