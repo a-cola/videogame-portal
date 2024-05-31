@@ -12,6 +12,7 @@ export function MyGamesPage () {
     const [gameList, setGameList] = useState<Game[]|null>(null);
     const [bestScore, setBestScore] = useState<(string | number)[]>([]);
     const [mostPlayedGenre, setMostPlayedGenre] = useState<string>("");
+    const [notificationSent, setNotificationSent] = useState<boolean>(false);
 
     const userCtx = useContext(UserContext);
 
@@ -26,11 +27,12 @@ export function MyGamesPage () {
 
     useEffect(()=>{
         // Sends a notification if user hasn't had add games to his library yet
-        if(gameList !== null && gameList.length==0) {
+        if(gameList !== null && gameList.length==0 && !notificationSent) {
             sendNotification(
                 "Add games to MyGames",
                 "You haven't added any games to your library yet. Click on '+ Add to MyGames' on any game page to do so."
             )
+            setNotificationSent(true);
         }
 
         // If users has games in his library then best score and most played genre will be computed

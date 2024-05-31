@@ -13,10 +13,13 @@ export function HomePage () {
     const gameCtx = useContext(GamesContext);
     const userCtx = useContext(UserContext);
 
+    const [notificationSent, setNotificationSent] = useState<boolean>(false);
+
     // If user is not logged sends a notification
     useEffect(()=>{
-        if(userCtx?.currentUser == null && userCtx?.loading==false) {
+        if(userCtx?.currentUser == null && userCtx?.loading==false && !notificationSent) {
             sendNotification("SignIn", "Sign in to unlock all VGP functionalities.");
+            setNotificationSent(true);
         }
     }, [userCtx?.loading]);
 
