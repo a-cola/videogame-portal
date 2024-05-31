@@ -111,9 +111,9 @@ function GameCarousel({gameList, title}:{gameList:Game[], title:string}) {
     
     return <>
         <div className="carousel-container">
+            <span className="carousel-title">{title}</span>
+            <div className="hl"></div>
             <div className="carousel-viewer">
-                <span className="carousel-title">{title}</span>
-                <div className="hl"></div>
                 <div className="carousel" ref={viewerRef}>
                     {scrollPosition>0
                     ?<button aria-label="arrow-left" className="carousel-arrow-left" onClick={()=>handleScroll(-200)}>

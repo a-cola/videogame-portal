@@ -10,7 +10,7 @@
     justify-content: space-between;
     background-color: rgb(50, 50, 50);
     border-radius: 10px;
-    width: 400px;
+    width: 97%;
     margin: 20px;
 }
 .game-big {
@@ -51,6 +51,7 @@
 .game-big-title {
     font-size: 25px;
     font-weight: bold;
+    word-break: break-word;
 }
 .game-big-title:hover, .game-big-genre:hover {
     text-decoration: underline;
@@ -76,10 +77,10 @@
 }
 .main-viewer-list {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     border-radius: 10px;
     background-color: rgb(60, 60, 60);
-    width: 400px;
+    width: 100%;
 }
 .game-small {
     display: flex;
@@ -97,6 +98,7 @@
 .game-small-title {
     font-size: 12px;
     font-weight: bold;
+    word-break: break-word;
 }
 .game-small-year {
     display: none;

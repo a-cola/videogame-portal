@@ -51,6 +51,7 @@
 .game-big-title {
     font-size: xxx-large;
     font-weight: bold;
+    word-break: break-word;
 }
 .game-big-title:hover, .game-big-genre:hover {
     text-decoration: underline;
@@ -96,6 +97,7 @@
 .game-small-title {
     font-size: large;
     font-weight: bold;
+    word-break: break-word;
 }
 .game-small-info {
     display: flex;
