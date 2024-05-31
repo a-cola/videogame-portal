@@ -37,7 +37,7 @@ export function HomePage () {
             </div>
         </section>
         <GameCarousel gameList={gameCtx.topTen} title={"Top 10"}/>
-        <GameCarousel gameList={gameCtx.recentlyAdded} title={"Recently Added"}/>
+        <GameCarousel gameList={gameCtx.recentlyAdded} title={"Recently Released"}/>
         <Footer />
     </>
 }
