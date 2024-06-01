@@ -147,7 +147,7 @@
 .game-vote-vgp, .game-vote-user {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     overflow-x: auto;
     overflow-y: hidden;
     scrollbar-color: gray rgb(50, 50, 50);
