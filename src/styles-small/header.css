@@ -133,13 +133,18 @@
     flex-wrap: wrap;
     position: absolute;
     top: 65px;
-    left: 5px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
     background-color: #00a2ff;
     padding: 10px;
-    width: 350px;
+    width: 97%;
+    max-width: 350px;
     border-radius: 10px;
     animation: dropdown-open ease-in-out 300ms forwards;
     z-index: 1;
+    box-sizing: border-box;
 }
 .dropdown-genres-container {
     display: flex;
