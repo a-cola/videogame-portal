@@ -274,14 +274,21 @@ function VoteModal ({voteVisibility, setVoteVisibility, addVote}:{voteVisibility
     // Checks if inserted votes are valid
     const checkVotes = () => {
         let sum = 0;
+        let wrongInput = false;
         for(let r of voteRefs) {
             let number = Number(r.current?.value);
-            if(number < 1 || number > 10 || isNaN(number)) {
+            if(number < 1 || number > 10 || isNaN(number) /*|| r.current!.value.length > 0*/) {
                 setVoteError(true);
-                return null;
+                r.current!.style.border = "solid 3px red";
+                wrongInput = true;
             }
-            sum += number;
+            else {
+                sum += number;
+                r.current!.style.border = "none"
+            }
         }
+        if(wrongInput) return null;
+        
         let avg = Math.floor((sum/5*10))/10;
         setVoteError(false);
         return avg;
@@ -330,7 +337,7 @@ function VoteModal ({voteVisibility, setVoteVisibility, addVote}:{voteVisibility
 const VoteModalBox = forwardRef(({label}:{label:string},ref:ForwardedRef<HTMLInputElement>) => (
     <>
         <div className="vote-modal-box">
-            <input ref={ref} maxLength={3} placeholder="..."/>
+            <input ref={ref} minLength={1} maxLength={3} placeholder="..." required/>
             <span>{label}</span>
         </div>
     </>
