@@ -5,6 +5,8 @@ Videogame Portal is a Progressive Web App (PWA) that allows users to explore a v
 
 The app has been implemented using **React**, **Typescript**, and **Vite**.
 
+Link to try the PWA: [Videogame Portal](https://videogame-portal.vercel.app/)
+
 ### How to run
 In the terminal run commands:
 1. Install dependencies: `npm i`.
