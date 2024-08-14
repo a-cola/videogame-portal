@@ -28,7 +28,7 @@ export default defineConfig({
             type: "image/png",
           },
           {
-            src: 'icons/VGP_Logo_512.png',
+            src: 'icons/VGP_Logo_512_Maskable.png',
             sizes: "512x512",
             type: "image/png",
             purpose: "maskable"
