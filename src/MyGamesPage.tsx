@@ -5,8 +5,6 @@ import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { GameSlot } from "./GameSlot";
 import { useNavigate } from "react-router-dom";
-import { NotifyRequest } from "./NotifyRequest";
-import { sendNotification } from "./notificationServices";
 
 export function MyGamesPage () {
     const [gameList, setGameList] = useState<Game[]|null>(null);
@@ -25,15 +23,6 @@ export function MyGamesPage () {
     }, [userCtx?.currentUser?.uid]);
 
     useEffect(()=>{
-        // Sends a notification if user hasn't had add games to his library yet
-        if(gameList !== null && gameList.length==0 && !userCtx?.mygamesNotification) {
-            sendNotification(
-                "Add games to MyGames",
-                "You haven't added any games to your library yet. Click on '+ Add to MyGames' on any game page to do so."
-            )
-            userCtx!.setMygamesNotification(true);
-        }
-
         // If users has games in his library then best score and most played genre will be computed
         if(gameList !== null && gameList.length>0) {
             setBestScore(findBestScore());
@@ -84,7 +73,6 @@ export function MyGamesPage () {
     if(gameList === null) return <></>
     
     return <>
-        <NotifyRequest denied={userCtx!.notificationDenied} setDenied={userCtx!.setNotificationDenied}/>
         <Header />
         <section className="my-games">
             <span className="my-games-title">My Games</span>

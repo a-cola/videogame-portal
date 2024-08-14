@@ -5,8 +5,6 @@ import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { AppleIcon, PlaystationIcon, SwitchIcon, WindowsIcon, XboxIcon } from "./Icons";
 import { UserContext } from "./UserContext";
-import { NotifyRequest } from "./NotifyRequest";
-import { sendNotification } from "./notificationServices";
 
 export function GamePage () {
     const id = useLoaderData() as string;
@@ -43,14 +41,6 @@ export function GamePage () {
             setUserGame(null);
         }
     }, [game, userCtx?.currentUser, userHasGame, lastVote]);
-
-    // Sends notification when user has a game but he hasn't submit vote yet
-    useEffect(()=>{
-        if(userHasGame==true && userGame?.vote == 0 && !userCtx?.gameNotification) {
-            sendNotification("Vote your games", "Click on the 'Vote' button to submit your scores.");
-            userCtx!.setGameNotification(true);
-        }
-    }, [userHasGame, userGame]);
 
     // If user is logged adds user game to user storage in Firestore
     const addToMyGames = () => {
@@ -108,7 +98,6 @@ export function GamePage () {
     if(game===null) return <></>
 
     return <>
-        <NotifyRequest denied={userCtx!.notificationDenied} setDenied={userCtx!.setNotificationDenied}/>
         <VoteModal voteVisibility={voteVisibility} setVoteVisibility={setVoteVisibility} addVote={addVote}/>
         <Header />
         <section className="game-page-container">

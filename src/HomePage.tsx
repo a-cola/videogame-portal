@@ -5,26 +5,13 @@ import { GamesContext } from "./GamesContext";
 import { Game } from "./firebaseServices";
 import { ArrowLeft, ArrowRight } from "./Icons";
 import { useNavigate } from "react-router-dom";
-import { NotifyRequest } from "./NotifyRequest";
-import { UserContext } from "./UserContext";
-import { sendNotification } from "./notificationServices";
 
 export function HomePage () {
     const gameCtx = useContext(GamesContext);
-    const userCtx = useContext(UserContext);
-
-    // If user is not logged sends a notification
-    useEffect(()=>{
-        if(userCtx?.currentUser == null && userCtx?.loading==false && !userCtx.homeNotification) {
-            sendNotification("SignIn", "Sign in to unlock all VGP functionalities.");
-            userCtx.setHomeNotification(true);
-        }
-    }, [userCtx?.loading]);
 
     if(gameCtx.loading) return;
 
     return <>
-        <NotifyRequest denied={userCtx!.notificationDenied} setDenied={userCtx!.setNotificationDenied}/>
         <Header />
         <section className="home-page-container">
             <div className="main-viewer">
